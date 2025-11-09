@@ -1,6 +1,10 @@
 @import 'config/variables';
 @import 'config/colors';
 
+// VIBECODING CUSTOMIZATION - Epic 1, Story 1.4
+// Import vibecoding theme after config to override Crayons variables
+@import 'vibecoding/theme';
+
 @import 'base/reset';
 @import 'base/main';
 @import 'base/helpers';

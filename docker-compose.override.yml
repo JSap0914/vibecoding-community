@@ -1,0 +1,63 @@
+################################################################################
+# Vibecoding Community - Docker Compose Override
+#
+# This file customizes the base docker-compose.yml for local Vibecoding development
+# Automatically merged with docker-compose.yml when running docker-compose commands
+################################################################################
+
+services:
+  rails:
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@host.docker.internal:5432
+      DATABASE_URL_TEST: postgres://postgres:postgres@host.docker.internal:5432
+      REDIS_URL: redis://host.docker.internal:6379/
+
+  web:
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@host.docker.internal:5432
+      DATABASE_URL_TEST: postgres://postgres:postgres@host.docker.internal:5432
+      REDIS_URL: redis://host.docker.internal:6379/
+
+  sidekiq:
+    environment:
+      DATABASE_URL: postgres://postgres:postgres@host.docker.internal:5432
+      DATABASE_URL_TEST: postgres://postgres:postgres@host.docker.internal:5432
+      REDIS_URL: redis://host.docker.internal:6379/
+
+  # PostgreSQL 14+ for Vibecoding (overrides base postgres:13)
+  postgres:
+    image: postgres:14-alpine
+    container_name: vibecoding_postgres
+    network_mode: bridge
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: vibecoding_dev
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # Redis 7 for Vibecoding (confirmed version)
+  redis:
+    image: redis:7.0-alpine
+    container_name: vibecoding_redis
+    network_mode: bridge
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 1s
+      timeout: 3s
+      retries: 30
+
+volumes:
+  postgres_data:
+  redis_data:

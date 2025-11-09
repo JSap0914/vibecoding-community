@@ -1,0 +1,34 @@
+{
+  "permissions": {
+    "allow": [
+      "SlashCommand(/bmad:bmm:workflows:workflow-init)",
+      "Bash(xargs:*)",
+      "Bash(tree:*)",
+      "Bash(cat:*)",
+      "Bash(claude mcp add serena npx -y serena-mcp)",
+      "Bash(claude mcp add --help:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(/mcp)",
+      "Bash(claude mcp list:*)",
+      "Bash(claude mcp remove:*)",
+      "Bash(npx:*)",
+      "WebFetch(domain:github.com)",
+      "Bash(uv --version:*)",
+      "Bash(uvx --from git+https://github.com/oraios/serena serena start-mcp-server)",
+      "WebSearch",
+      "SlashCommand(/bmad:bmm:workflows:create-epics-and-stories)",
+      "Bash(test:*)",
+      "Bash(find:*)",
+      "Bash(ruby:*)",
+      "Bash(bundle check:*)",
+      "Bash(docker:*)",
+      "Bash(netstat:*)",
+      "Bash(findstr:*)",
+      "Bash(taskkill:*)",
+      "Bash(powershell -Command \"Stop-Process -Id 22640 -Force\")",
+      "Bash(curl:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

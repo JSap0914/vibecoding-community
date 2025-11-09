@@ -1,0 +1,296 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>4</storyId>
+    <title>Custom Vibecoding Theme & Visual Identity</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-4-custom-vibecoding-theme-visual-identity.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Designer/Frontend Developer</asA>
+    <iWant>to customize the Forem theme with vibecoding brand colors, logo, and visual identity</iWant>
+    <soThat>the platform reflects the unique vibecoding community brand</soThat>
+    <tasks>
+- Task 1: Prepare and verify brand assets (AC: 1.4.2, 1.4.3, 1.4.8)
+  - Subtask 1.1: Verify vibecoding logo SVG is available in multiple sizes
+  - Subtask 1.2: Create favicon files (32x32, 64x64)
+  - Subtask 1.3: Create app icons (180x180 for Apple, 512x512 for Android)
+  - Subtask 1.4: Organize assets in `app/assets/images/vibecoding/` directory
+  - Subtask 1.5: Upload assets to Cloudinary if needed for CDN delivery
+
+- Task 2: Configure Forem Admin Panel theme settings (AC: 1.4.1, 1.4.6)
+  - Subtask 2.1: Access Forem Admin Panel at /admin/customization/config
+  - Subtask 2.2: Upload logo and favicon via admin interface
+  - Subtask 2.3: Configure Crayons CSS variables for brand colors (primary, secondary)
+  - Subtask 2.4: Set custom fonts via Crayons font-family variables
+  - Subtask 2.5: Configure header and footer appearance settings
+
+- Task 3: Create custom CSS overrides for vibecoding theme (AC: 1.4.7)
+  - Subtask 3.1: Create `app/assets/stylesheets/vibecoding/theme.scss`
+  - Subtask 3.2: Define CSS custom properties for vibecoding brand colors
+  - Subtask 3.3: Apply typography customizations (font weights, line heights, sizes)
+  - Subtask 3.4: Style custom button variants if needed (vibecoding CTA styles)
+  - Subtask 3.5: Ensure CSS classes use `.vibecoding-*` prefix for custom styles
+
+- Task 4: Implement dark mode support (AC: 1.4.5)
+  - Subtask 4.1: Test existing Forem dark mode toggle functionality
+  - Subtask 4.2: Define dark mode color palette in Crayons variables
+  - Subtask 4.3: Add dark mode CSS overrides in `vibecoding/theme.scss`
+  - Subtask 4.4: Verify all brand colors meet contrast requirements in dark mode
+  - Subtask 4.5: Test dark mode toggle across all pages
+
+- Task 5: Ensure responsive design (AC: 1.4.9)
+  - Subtask 5.1: Test theme on mobile viewport (< 768px)
+  - Subtask 5.2: Test theme on tablet viewport (768px - 1024px)
+  - Subtask 5.3: Test theme on desktop viewport (> 1024px)
+  - Subtask 5.4: Adjust logo sizing for mobile header
+  - Subtask 5.5: Verify navigation menu collapses properly on mobile
+
+- Task 6: Accessibility compliance validation (AC: 1.4.10)
+  - Subtask 6.1: Run Lighthouse accessibility audit (target > 90 score)
+  - Subtask 6.2: Verify color contrast ratios meet WCAG 2.1 Level A (minimum 4.5:1 for text)
+  - Subtask 6.3: Test with screen reader (ensure logo has proper alt text)
+  - Subtask 6.4: Validate keyboard navigation works with themed elements
+  - Subtask 6.5: Run axe DevTools for accessibility issues
+
+- Task 7: Cross-browser testing
+  - Subtask 7.1: Test theme on Chrome (latest)
+  - Subtask 7.2: Test theme on Firefox (latest)
+  - Subtask 7.3: Test theme on Safari (latest)
+  - Subtask 7.4: Test theme on Edge (latest)
+  - Subtask 7.5: Document any browser-specific issues and workarounds
+
+- Task 8: Staging deployment and validation
+  - Subtask 8.1: Deploy theme changes to staging environment
+  - Subtask 8.2: Visual QA on staging (compare to design mockups)
+  - Subtask 8.3: Verify theme assets load from CDN (Cloudinary/Cloudflare)
+  - Subtask 8.4: Run performance testing (Lighthouse performance score > 90)
+  - Subtask 8.5: Get design team approval before production deploy
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+**Given** the Forem instance is deployed to staging
+**When** I apply custom theme customizations
+**Then** the following visual elements are updated:
+
+1. **AC-1.4.1**: Primary brand color scheme (vibecoding colors)
+2. **AC-1.4.2**: Custom logo in header and footer
+3. **AC-1.4.3**: Custom favicon and app icons
+4. **AC-1.4.4**: Typography updates (fonts, sizes, line-height)
+5. **AC-1.4.5**: Dark mode support with brand colors
+
+**And** theme customizations are implemented via:
+6. **AC-1.4.6**: Forem's Crayons design system variables
+7. **AC-1.4.7**: Custom CSS overrides (minimal, maintainable)
+8. **AC-1.4.8**: Logo assets in multiple sizes (SVG preferred)
+
+**And** **AC-1.4.9**: Theme works responsively across mobile, tablet, desktop
+
+**And** **AC-1.4.10**: Accessibility is maintained (color contrast ratios WCAG 2.1 Level A)
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Platform Foundation &amp; Branding</title>
+        <section>Story 1.4: Custom Vibecoding Theme &amp; Visual Identity</section>
+        <snippet>Epic 1 establishes custom vibecoding theme applied via Crayons design system and CSS overrides. Theme customization workflow uses Forem Admin Panel for basic theming (no-code configuration), minimal CSS overrides only where Crayons variables insufficient.</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Platform Foundation &amp; Branding</title>
+        <section>Workflows and Sequencing - Workflow 3: Theme Customization</section>
+        <snippet>Access Forem Admin Panel at /admin/customization/config, upload brand assets (logo SVG, favicon, app icons), configure Crayons CSS variables for colors, fonts, spacing. Add custom CSS overrides in app/assets/stylesheets/vibecoding/theme.scss only if needed.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Vibecoding Community Architecture Document</title>
+        <section>Implementation Patterns - Pattern 2: Namespaced Customizations</section>
+        <snippet>All custom code must be clearly namespaced. Files: vibecoding/ or custom/. CSS classes: .vibecoding-* or use Crayons. Git commits: [VIBECODING] prefix. Maintains upgrade compatibility by isolating customizations.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Vibecoding Community Architecture Document</title>
+        <section>Epic to Architecture Mapping - Epic 1: Platform Foundation &amp; Branding</section>
+        <snippet>Location: app/assets/vibecoding/, app/views/layouts/, Admin Panel. Database Impact: None (configuration-based). Components: Theme CSS, logo assets, custom landing page. External Services: Cloudflare CDN, Railway/Render hosting.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Vibecoding Community Architecture Document</title>
+        <section>Technology Stack Details - Frontend Stack</section>
+        <snippet>Preact 10.20.2 (UI framework), Stimulus (JavaScript sprinkles), ESBuild 0.19.12 (fast bundling), Sass (CSS preprocessing), Crayons Design System (305+ UI components - Forem's design system).</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>app/assets/stylesheets/crayons.scss</path>
+        <kind>stylesheet</kind>
+        <symbol>Main Crayons entry point</symbol>
+        <lines>1-53</lines>
+        <reason>Primary Crayons design system import file. Shows modular component structure and imports config/variables and config/colors which define CSS custom properties for theming.</reason>
+      </artifact>
+      <artifact>
+        <path>app/assets/stylesheets/config/_colors.css</path>
+        <kind>stylesheet</kind>
+        <symbol>:root CSS variables</symbol>
+        <lines>1-50</lines>
+        <reason>Defines CSS custom properties for color system including --base, --accent-brand, --body-bg, --body-color. Base palette uses RGB values for theme customization.</reason>
+      </artifact>
+      <artifact>
+        <path>app/assets/stylesheets/config/_variables.scss</path>
+        <kind>stylesheet</kind>
+        <symbol>:root CSS variables</symbol>
+        <lines>1-50</lines>
+        <reason>Defines design system variables for spacing units (--su-*), border radius (--radius), header height (--header-height). Essential for maintaining consistent spacing in custom theme.</reason>
+      </artifact>
+      <artifact>
+        <path>app/assets/stylesheets/themes/dark.css</path>
+        <kind>stylesheet</kind>
+        <symbol>Dark theme overrides</symbol>
+        <lines>1-50</lines>
+        <reason>Reference implementation for dark mode theming. Shows pattern for overriding color variables with [data-theme="dark"] selector. Model for vibecoding dark mode implementation.</reason>
+      </artifact>
+      <artifact>
+        <path>app/assets/images</path>
+        <kind>directory</kind>
+        <symbol>Asset directory</symbol>
+        <lines>N/A</lines>
+        <reason>Contains existing Forem images including logo files (logo-forem.svg, apple-icon-*.png, favicon.ico). Reference for asset naming conventions and structure. New vibecoding/ subdirectory should follow this pattern.</reason>
+      </artifact>
+      <artifact>
+        <path>app/views/layouts</path>
+        <kind>directory</kind>
+        <symbol>Layout templates</symbol>
+        <lines>N/A</lines>
+        <reason>Contains header/footer layout files where logo and brand elements will be displayed. May need minor adjustments for custom logo placement if admin panel configuration insufficient.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <frontend>
+        <dependency name="preact" version="10.20.2" reason="UI framework (React-compatible, 3KB)" />
+        <dependency name="sass" version="latest" reason="CSS preprocessing for theme stylesheets" />
+        <dependency name="esbuild" version="0.19.12" reason="Fast JavaScript bundling" />
+        <dependency name="@storybook/preact" version="6.5.16" reason="UI component documentation and testing" />
+        <dependency name="eslint" version="8.57.0" reason="JavaScript linting" />
+        <dependency name="cypress" version="13.7.2" reason="E2E testing for theme validation" />
+      </frontend>
+      <backend>
+        <dependency name="rails" version="7.0.8.4" reason="MVC framework and asset pipeline" />
+        <dependency name="ruby" version="3.3.0" reason="Programming language" />
+        <dependency name="carrierwave" version="2.2" reason="File upload handling (for logo/asset uploads)" />
+        <dependency name="cloudinary" version="1.23" reason="Image hosting and CDN (optional for asset delivery)" />
+        <dependency name="devise" version="4.8" reason="Authentication for admin panel access" />
+      </backend>
+      <testing>
+        <dependency name="rspec" version="latest" reason="Ruby testing framework (not needed for CSS-only story)" />
+        <dependency name="lighthouse" version="latest" reason="Performance and accessibility auditing" />
+        <dependency name="axe-core" version="latest" reason="Accessibility testing via axe DevTools browser extension" />
+      </testing>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Forem Admin Panel (/admin/customization/config) for primary theme configuration - no-code approach preferred</constraint>
+    <constraint>All custom CSS must use .vibecoding-* class prefix to avoid Forem core conflicts (Pattern 2: Namespaced Customizations)</constraint>
+    <constraint>Create custom theme file at app/assets/stylesheets/vibecoding/theme.scss for CSS overrides only where Crayons variables insufficient</constraint>
+    <constraint>Store brand assets in app/assets/images/vibecoding/ directory following Forem's naming conventions</constraint>
+    <constraint>Use CSS custom properties (--vibecoding-*) for brand colors to enable easy dark mode theming</constraint>
+    <constraint>Maintain WCAG 2.1 Level A compliance (minimum 4.5:1 contrast ratio for text) for both light and dark modes</constraint>
+    <constraint>All Git commits must use [VIBECODING] prefix per consistency rules</constraint>
+    <constraint>SVG format preferred for logo assets (scalability, small file size)</constraint>
+    <constraint>Lighthouse performance score must remain > 90 (CSS bundle size increase < 10KB)</constraint>
+    <constraint>No monkey-patching of Forem core - extend via documented customization methods only</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Forem Admin Panel - Theme Configuration</name>
+      <kind>Web UI</kind>
+      <signature>/admin/customization/config</signature>
+      <path>Web-based admin interface</path>
+      <description>Primary interface for theme customization. Upload logo/favicon, configure Crayons CSS variables (colors, fonts), adjust header/footer appearance. No file editing required for basic theming.</description>
+    </interface>
+    <interface>
+      <name>Crayons CSS Custom Properties API</name>
+      <kind>CSS Variable System</kind>
+      <signature>--color-primary, --color-secondary, --font-family-sans, --accent-brand, --base-*, --su-*, --radius</signature>
+      <path>app/assets/stylesheets/config/_colors.css, app/assets/stylesheets/config/_variables.scss</path>
+      <description>Forem's design system theming API. Override these CSS variables in :root or [data-theme="dark"] selectors to customize colors, typography, spacing, and border radius across all 305+ UI components.</description>
+    </interface>
+    <interface>
+      <name>Rails Asset Pipeline</name>
+      <kind>Build System</kind>
+      <signature>app/assets/images/*, app/assets/stylesheets/*.scss</signature>
+      <path>Sprockets/Propshaft asset compilation</path>
+      <description>Rails asset processing system. Automatically fingerprints assets for cache-busting, compiles SCSS to CSS, processes images. Assets referenced via asset_path() helper in views.</description>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+This story requires primarily visual QA and accessibility testing rather than unit tests. The testing approach includes:
+- Visual QA: Manual design review comparing implementation to brand guidelines and mockups
+- Accessibility Testing: Lighthouse audits (target score > 90), axe DevTools for WCAG compliance, WAVE contrast checker for color ratios
+- Cross-browser Testing: Chrome, Firefox, Safari, Edge (latest versions)
+- Responsive Testing: Mobile (375px), Tablet (768px), Desktop (1440px) viewports
+- Performance Testing: Lighthouse performance score (target > 90), CSS bundle size analysis
+- E2E Testing: Cypress tests for theme toggle functionality if dark mode implemented
+- No unit tests required for CSS/theme work per story testing standards
+    </standards>
+    <locations>
+      <location>cypress/e2e/ - E2E tests for theme toggle (dark mode)</location>
+      <location>Manual browser testing - Visual QA across viewports</location>
+      <location>Browser DevTools - Lighthouse, axe DevTools accessibility audits</location>
+    </locations>
+    <ideas>
+      <test ac="AC-1.4.1" description="Verify primary brand colors applied throughout UI (buttons, links, accents) using browser inspect">
+        - Navigate to homepage, inspect button elements
+        - Verify CSS variables --color-primary, --accent-brand match vibecoding brand colors
+        - Check computed styles in DevTools
+      </test>
+      <test ac="AC-1.4.2" description="Verify custom logo appears in header and footer on all major pages">
+        - Visit homepage, article page, user profile, settings
+        - Confirm vibecoding logo visible in header (top nav)
+        - Confirm logo visible in footer
+        - Check logo alt text for accessibility
+      </test>
+      <test ac="AC-1.4.3" description="Verify custom favicon and app icons load correctly">
+        - Check browser tab for custom favicon
+        - Add to home screen on iOS/Android, verify app icon
+        - Inspect network tab for correct asset paths
+      </test>
+      <test ac="AC-1.4.4, AC-1.4.5" description="Verify dark mode toggle works and brand colors adjust appropriately">
+        - Toggle dark mode switch in UI
+        - Verify [data-theme='dark'] attribute applied to body/html
+        - Check --vibecoding-primary, --vibecoding-secondary CSS variables update
+        - Confirm logo visibility in both modes
+      </test>
+      <test ac="AC-1.4.9" description="Responsive design testing across mobile, tablet, desktop">
+        - Resize browser to 375px (mobile) - logo scales, navigation collapses
+        - Resize to 768px (tablet) - layout adjusts appropriately
+        - Resize to 1440px (desktop) - full layout visible
+        - Use Chrome DevTools device emulation
+      </test>
+      <test ac="AC-1.4.10" description="Accessibility compliance - WCAG 2.1 Level A contrast ratios">
+        - Run Lighthouse accessibility audit (target > 90)
+        - Use axe DevTools to scan for accessibility issues
+        - Use WAVE contrast checker on text/background combinations
+        - Verify 4.5:1 minimum contrast for normal text, 3:1 for large text
+        - Test with screen reader (NVDA/JAWS) for logo alt text
+      </test>
+      <test ac="AC-1.4.6, AC-1.4.7" description="Verify Crayons variables and minimal CSS overrides">
+        - Inspect app/assets/stylesheets/vibecoding/theme.scss file size (< 10KB)
+        - Review CSS overrides are minimal and use .vibecoding-* prefix
+        - Confirm Crayons variables used where possible
+      </test>
+      <test ac="Performance" description="Lighthouse performance score > 90, no impact to page load">
+        - Run Lighthouse performance audit on homepage
+        - Check CSS bundle size increase (should be < 10KB)
+        - Verify assets load from CDN if configured (Cloudinary/Cloudflare)
+      </test>
+    </ideas>
+  </tests>
+</story-context>

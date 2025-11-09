@@ -1,0 +1,267 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>1</storyId>
+    <title>Project Setup & Infrastructure Initialization</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-1-project-setup-infrastructure-initialization.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>DevOps Engineer</asA>
+    <iWant>establish the foundational project structure, repository configuration, and core dependencies</iWant>
+    <soThat>the development team has a stable foundation to build upon</soThat>
+    <tasks>
+- Task 1: Verify and configure Git repository (AC: 1.1.1)
+  - Subtask 1.1: Review .gitignore to ensure Ruby/Rails patterns (.env, credentials, node_modules, etc.)
+  - Subtask 1.2: Verify git hooks if any exist
+  - Subtask 1.3: Document any Forem-specific gitignore patterns
+
+- Task 2: Configure environment files (AC: 1.1.2)
+  - Subtask 2.1: Create .env.example template with all required variables
+  - Subtask 2.2: Verify database.yml configuration for development, test, and production
+  - Subtask 2.3: Document environment variable purposes and default values
+
+- Task 3: Set up Ruby version management (AC: 1.1.3)
+  - Subtask 3.1: Verify .ruby-version file specifies Ruby 3.3.0
+  - Subtask 3.2: Document rbenv/rvm installation instructions
+  - Subtask 3.3: Test Ruby version setup on clean environment
+
+- Task 4: Configure Bundler and dependencies (AC: 1.1.4)
+  - Subtask 4.1: Verify Gemfile and Gemfile.lock are present
+  - Subtask 4.2: Document bundle install process
+  - Subtask 4.3: Test dependency installation
+
+- Task 5: Set up PostgreSQL (AC: 1.1.5)
+  - Subtask 5.1: Create docker-compose.yml for PostgreSQL 14 container
+  - Subtask 5.2: Document PostgreSQL setup for both Docker and native installation
+  - Subtask 5.3: Test database container startup and connectivity
+
+- Task 6: Configure Redis (AC: 1.1.6)
+  - Subtask 6.1: Add Redis 7 container to docker-compose.yml
+  - Subtask 6.2: Document Redis configuration for caching and Sidekiq
+  - Subtask 6.3: Test Redis connectivity
+
+- Task 7: Set up Node.js and Yarn (AC: 1.1.7)
+  - Subtask 7.1: Verify .nvmrc or document Node 20.x requirement
+  - Subtask 7.2: Verify package.json and yarn.lock are present
+  - Subtask 7.3: Document yarn installation and package setup
+
+- Task 8: Create development guide (AC: 1.1.8)
+  - Subtask 8.1: Create docs/development-guide.md with setup instructions
+  - Subtask 8.2: Document prerequisites (Ruby, Node, Docker)
+  - Subtask 8.3: Add troubleshooting section for common setup issues
+  - Subtask 8.4: Document Windows (MINGW64) specific considerations
+
+- Task 9: Verify bin/setup script (AC: 1.1.9)
+  - Subtask 9.1: Review bin/setup script for Forem-specific steps
+  - Subtask 9.2: Test full setup process from clean clone
+  - Subtask 9.3: Create seed data for local development testing
+  - Subtask 9.4: Document expected output and success indicators
+
+- Task 10: Testing and validation
+  - Subtask 10.1: Test setup on clean environment (simulate new developer onboarding)
+  - Subtask 10.2: Verify all dependencies install without errors
+  - Subtask 10.3: Confirm development guide is complete and accurate
+  - Subtask 10.4: Validate .env.example contains all necessary variables
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+**Given** the existing Forem codebase at the repository
+**When** I set up the project infrastructure
+**Then** the following are configured and documented:
+
+1. **AC-1.1.1**: Git repository with proper .gitignore for Ruby/Rails projects
+2. **AC-1.1.2**: Environment configuration files (.env.example, database.yml)
+3. **AC-1.1.3**: Ruby version management (rbenv/rvm) with Ruby 3.3.0
+4. **AC-1.1.4**: Bundler for dependency management
+5. **AC-1.1.5**: PostgreSQL database setup scripts
+6. **AC-1.1.6**: Redis configuration for caching and background jobs
+7. **AC-1.1.7**: Node.js and Yarn for frontend asset management
+
+**And** **AC-1.1.8**: A development setup guide is created in docs/development-guide.md
+
+**And** **AC-1.1.9**: All developers can clone and run `bin/setup` successfully
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Platform Foundation & Branding</title>
+        <section>Story 1.1: Project Setup & Infrastructure Initialization</section>
+        <snippet>Specifies Git repository configuration, environment files (.env.example, database.yml), Ruby 3.3.0/Rails 7.0.8.4/PostgreSQL/Redis setup, development documentation, and seed data requirements.</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic Technical Specification: Platform Foundation & Branding</title>
+        <section>Technology Stack</section>
+        <snippet>Backend: Ruby on Rails 7.0.8.4, Ruby 3.3.0, Puma. Frontend: Preact 10.20.2, Stimulus, Crayons. Database: PostgreSQL 14+ (managed). Cache/Jobs: Redis 4.7.1+, Sidekiq 6.5.3. Hosting: Railway or Render.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Vibecoding Community</title>
+        <section>Project Initialization</section>
+        <snippet>Brownfield approach using existing Forem installation. Development setup: git clone, bin/setup, docker-compose up for PostgreSQL/Redis, foreman start for Rails/Sidekiq. Conservative version strategy for MVP.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture - Vibecoding Community</title>
+        <section>Brownfield Customization Strategy (ADR-001)</section>
+        <snippet>Extend, don't modify core Forem code. All customizations namespaced (vibecoding/, custom/). Maintain upgrade compatibility. Leverage existing 106 tables and 305+ UI components.</snippet>
+      </doc>
+      <doc>
+        <path>docs/PRD.md</path>
+        <title>vibecoding-community - Product Requirements Document</title>
+        <section>Project Classification</section>
+        <snippet>Brownfield customization of Forem platform. Rails 7.0.8 backend, Preact 10.20.2 frontend, PostgreSQL with 106+ tables, Redis caching, Sidekiq jobs, 305+ UI components via Crayons.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>.gitignore</path>
+        <kind>config</kind>
+        <symbol>N/A</symbol>
+        <lines>1-end</lines>
+        <reason>Ruby/Rails patterns already configured for Forem - verify completeness for vibecoding customizations</reason>
+      </artifact>
+      <artifact>
+        <path>.ruby-version</path>
+        <kind>config</kind>
+        <symbol>N/A</symbol>
+        <lines>1</lines>
+        <reason>Specifies Ruby 3.3.0 - matches architecture requirement</reason>
+      </artifact>
+      <artifact>
+        <path>.env_sample</path>
+        <kind>config</kind>
+        <symbol>N/A</symbol>
+        <lines>1-50</lines>
+        <reason>Existing Forem environment template - rename to .env.example and customize for vibecoding</reason>
+      </artifact>
+      <artifact>
+        <path>config/database.yml</path>
+        <kind>config</kind>
+        <symbol>N/A</symbol>
+        <lines>1-end</lines>
+        <reason>Database configuration for PostgreSQL - verify development/test/production settings</reason>
+      </artifact>
+      <artifact>
+        <path>docker-compose.yml</path>
+        <kind>config</kind>
+        <symbol>postgres service, redis service</symbol>
+        <lines>44-47</lines>
+        <reason>Existing Docker Compose with PostgreSQL and Redis services - verify versions match architecture (PostgreSQL 14+, Redis 7)</reason>
+      </artifact>
+      <artifact>
+        <path>bin/setup</path>
+        <kind>script</kind>
+        <symbol>setup script</symbol>
+        <lines>1-42</lines>
+        <reason>Forem setup script handling bundler, yarn, database.yml, .env, app initialization - review and document for vibecoding</reason>
+      </artifact>
+      <artifact>
+        <path>Gemfile</path>
+        <kind>config</kind>
+        <symbol>N/A</symbol>
+        <lines>1-end</lines>
+        <reason>Ruby dependencies - verify Rails 7.0.8.4, Sidekiq, and other required gems</reason>
+      </artifact>
+      <artifact>
+        <path>package.json</path>
+        <kind>config</kind>
+        <symbol>N/A</symbol>
+        <lines>1-end</lines>
+        <reason>Node.js dependencies - verify Preact 10.20.2 and frontend tooling</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <ruby>
+        <gem name="rails" version="7.0.8.4" />
+        <gem name="pg" version="PostgreSQL adapter" />
+        <gem name="redis" version="4.7.1+" />
+        <gem name="sidekiq" version="6.5.3" />
+        <gem name="puma" version="web server" />
+      </ruby>
+      <node>
+        <package name="preact" version="10.20.2" />
+        <package name="yarn" version="package manager" />
+      </node>
+      <system>
+        <dependency name="Ruby" version="3.3.0" />
+        <dependency name="PostgreSQL" version="14+" />
+        <dependency name="Redis" version="7" />
+        <dependency name="Node.js" version="20.x" />
+        <dependency name="Docker" version="for PostgreSQL and Redis containers" />
+      </system>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint category="brownfield">Extend existing Forem setup, don't rebuild - leverage bin/setup script and existing configuration files</constraint>
+    <constraint category="namespacing">All customizations must be namespaced (vibecoding/, custom/) - prefix custom logging with "VIBECODING:"</constraint>
+    <constraint category="git-commits">All custom code commits must use [VIBECODING] prefix</constraint>
+    <constraint category="documentation">Track all customizations in docs/customization-guide.md for upgrade compatibility</constraint>
+    <constraint category="environment">All secrets in .env file, never committed to git - use .env.example template</constraint>
+    <constraint category="development">Docker Compose for local PostgreSQL and Redis - consistency with production managed services</constraint>
+    <constraint category="compatibility">Windows MINGW64 environment compatibility - document platform-specific issues</constraint>
+    <constraint category="testing">Manual testing via new developer onboarding simulation - verify setup completes without errors</constraint>
+  </constraints>
+
+  <interfaces>
+    <interface>
+      <name>bin/setup</name>
+      <kind>Setup Script</kind>
+      <signature>#!/usr/bin/env ruby - Idempotent development environment setup script</signature>
+      <path>bin/setup</path>
+      <description>Installs bundler, configures bundle, installs dependencies (bundle + yarn), copies sample files (database.yml, .env), initializes application with rails app_initializer:setup and forem:setup</description>
+    </interface>
+    <interface>
+      <name>Environment Variables</name>
+      <kind>Configuration Interface</kind>
+      <signature>.env file loaded by Rails application</signature>
+      <path>.env_sample</path>
+      <description>Required variables: APP_DOMAIN, APP_PROTOCOL, FOREM_OWNER_SECRET, REDIS_URL, DATABASE_URL, DATABASE_NAME, COMMUNITY_NAME, DEFAULT_EMAIL</description>
+    </interface>
+    <interface>
+      <name>Docker Compose Services</name>
+      <kind>Infrastructure Interface</kind>
+      <signature>docker-compose up - starts postgres and redis services</signature>
+      <path>docker-compose.yml</path>
+      <description>PostgreSQL service on port 5432, Redis service on port 6379, health checks configured, volumes for data persistence</description>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+Forem uses RSpec for Ruby/Rails testing. Testing framework is already configured in the existing Forem installation. For this infrastructure story, testing is primarily manual validation rather than automated unit tests. The testing approach focuses on:
+1. New developer onboarding simulation - verify setup completes without errors
+2. Dependencies install successfully (bundle install, yarn install)
+3. Environment configuration files are valid and complete
+4. Docker containers start and connect properly
+5. Documentation accuracy verification
+
+Test execution: Run `bundle exec rspec` for existing test suite. For this story, use manual validation checklist from acceptance criteria.
+    </standards>
+    <locations>
+      <location>spec/</location>
+      <location>spec/controllers/</location>
+      <location>spec/models/</location>
+      <location>spec/services/</location>
+    </locations>
+    <ideas>
+      <test ac="AC-1.1.1">Manual: Verify .gitignore contains Ruby/Rails patterns (.env, credentials, node_modules, log/, tmp/, public/uploads)</test>
+      <test ac="AC-1.1.2">Manual: Verify .env.example exists with all required variables (DATABASE_URL, REDIS_URL, FOREM_OWNER_SECRET, etc.)</test>
+      <test ac="AC-1.1.3">Manual: Verify .ruby-version specifies Ruby 3.3.0</test>
+      <test ac="AC-1.1.4">Manual: Run `bundle install` and verify no errors</test>
+      <test ac="AC-1.1.5">Manual: Run `docker-compose up postgres` and verify PostgreSQL container starts and is accessible</test>
+      <test ac="AC-1.1.6">Manual: Run `docker-compose up redis` and verify Redis container starts and is accessible</test>
+      <test ac="AC-1.1.7">Manual: Run `yarn install` and verify no errors</test>
+      <test ac="AC-1.1.8">Manual: Verify docs/development-guide.md exists and contains complete setup instructions</test>
+      <test ac="AC-1.1.9">Integration: Clone repo to fresh directory, run `bin/setup`, verify successful completion without errors</test>
+      <test ac="General">Performance: Verify database migration time is less than 5 minutes for `rails db:migrate`</test>
+    </ideas>
+  </tests>
+</story-context>

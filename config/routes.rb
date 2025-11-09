@@ -331,6 +331,7 @@ Rails.application.routes.draw do
 
     # These routes are required by links in the sites and will most likely to be replaced by a db page
     get "/about", to: "pages#about"
+    get "/community-guidelines", to: "pages#community_guidelines" # VIBECODING - Epic 1, Story 1.6
     get "/security", to: "pages#bounty"
     get "/community-moderation", to: "pages#community_moderation"
     get "/faq", to: "pages#faq"
@@ -469,7 +470,9 @@ Rails.application.routes.draw do
     get "/:slug_0/:slug_1/:slug_2/:slug_3", to: "pages#show", as: :page_0_1_2_3
     get "/:slug_0/:slug_1/:slug_2/:slug_3/:slug_4", to: "pages#show", as: :page_0_1_2_3_4
     get "/:slug_0/:slug_1/:slug_2/:slug_3/:slug_4/:slug_5", to: "pages#show", as: :page_0_1_2_3_4_5
-    root "stories#index"
+    # VIBECODING CUSTOMIZATION - Epic 1, Story 1.5
+    # Use custom landing page instead of Forem default
+    root "pages#landing"
   end
 end
 

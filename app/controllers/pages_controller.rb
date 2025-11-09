@@ -1,6 +1,33 @@
 class PagesController < ApplicationController
   # No authorization required for entirely public controller
-  before_action :set_cache_control_headers, only: %i[show badge bounty faq robots]
+  before_action :set_cache_control_headers, only: %i[show badge bounty faq robots landing]
+
+  # VIBECODING CUSTOMIZATION - Epic 1, Story 1.5
+  # Landing page controller action
+  def landing
+    # Fetch community stats (cached for performance)
+    @user_count = Rails.cache.fetch("landing_user_count", expires_in: 1.hour) do
+      User.registered.count
+    end
+
+    @article_count = Rails.cache.fetch("landing_article_count", expires_in: 1.hour) do
+      Article.published.count
+    end
+
+    # Project count placeholder - Epic 2 will add anyon_project_url field
+    @project_count = 0
+
+    # Fetch featured articles (cache for performance)
+    @featured_articles = Rails.cache.fetch("landing_featured_articles", expires_in: 1.hour) do
+      Article.published
+             .order(created_at: :desc)
+             .includes(:user)
+             .limit(6)
+             .to_a
+    end
+
+    set_surrogate_key_header "landing_page"
+  end
 
   def show
     params[:slug] = combined_fragmented_slug if params[:slug_0].present?
@@ -47,6 +74,13 @@ class PagesController < ApplicationController
     @page = Page.find_by(slug: "code-of-conduct")
     render :show if @page
     set_surrogate_key_header "code_of_conduct_page"
+  end
+
+  # VIBECODING CUSTOMIZATION - Epic 1, Story 1.6
+  def community_guidelines
+    @page = Page.find_by(slug: "community-guidelines")
+    render :show if @page
+    set_surrogate_key_header "community_guidelines_page"
   end
 
   def community_moderation

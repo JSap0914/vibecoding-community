@@ -1,0 +1,305 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>6</storyId>
+    <title>About Page & Community Guidelines</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-6-about-page-community-guidelines.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Community Manager</asA>
+    <iWant>an About page and Community Guidelines that set expectations</iWant>
+    <soThat>users understand the community purpose and behavioral standards</soThat>
+    <tasks>
+      <task id="1" ac="1.6.1, 1.6.2, 1.6.3, 1.6.4, 1.6.5">
+        <description>Create About page using Forem Pages feature</description>
+        <subtasks>
+          <subtask id="1.1">Access Forem Admin Panel → Pages → New Page</subtask>
+          <subtask id="1.2">Set slug to "about" and title to "About Vibecoding Community"</subtask>
+          <subtask id="1.3">Write mission statement (building the vibecoding movement)</subtask>
+          <subtask id="1.4">Explain what makes this community special (AI + natural language development focus)</subtask>
+          <subtask id="1.5">Include authentic ANYON connection (platform enabling vibecoding, not sales pitch)</subtask>
+          <subtask id="1.6">Add team introduction section (optional, with names and roles)</subtask>
+          <subtask id="1.7">Include contact information (email, social media, Discord/Slack if available)</subtask>
+          <subtask id="1.8">Publish page and verify accessible at /about</subtask>
+        </subtasks>
+      </task>
+      <task id="2" ac="1.6.6, 1.6.7, 1.6.8, 1.6.9, 1.6.10">
+        <description>Create Community Guidelines page using Forem Pages feature</description>
+        <subtasks>
+          <subtask id="2.1">Access Forem Admin Panel → Pages → New Page</subtask>
+          <subtask id="2.2">Set slug to "community-guidelines" and title to "Community Guidelines"</subtask>
+          <subtask id="2.3">Define expected behavior standards (respectful, constructive, authentic)</subtask>
+          <subtask id="2.4">Outline content quality standards (substantive posts, no spam, no low-effort content)</subtask>
+          <subtask id="2.5">Explain self-promotion policy (ANYON showcases encouraged, other products require context/value)</subtask>
+          <subtask id="2.6">Document moderation policy (warnings, suspensions, bans)</subtask>
+          <subtask id="2.7">Explain consequences for guideline violations (escalation path)</subtask>
+          <subtask id="2.8">Add "How to report issues" section (flag posts, contact moderators)</subtask>
+          <subtask id="2.9">Publish page and verify accessible at /community-guidelines</subtask>
+        </subtasks>
+      </task>
+      <task id="3" ac="1.6.11">
+        <description>Add footer navigation links</description>
+        <subtasks>
+          <subtask id="3.1">Access Forem Admin Panel → Customization → Config → Footer</subtask>
+          <subtask id="3.2">Add "About" link to footer navigation</subtask>
+          <subtask id="3.3">Add "Community Guidelines" link to footer navigation</subtask>
+          <subtask id="3.4">Verify links appear in footer on all pages</subtask>
+          <subtask id="3.5">Test footer navigation links on mobile and desktop</subtask>
+        </subtasks>
+      </task>
+      <task id="4" ac="1.6.12">
+        <description>Integrate guidelines into signup flow</description>
+        <subtasks>
+          <subtask id="4.1">Review Forem's user registration flow (typically /users/sign_up)</subtask>
+          <subtask id="4.2">Check if Forem has built-in "Accept Community Guidelines" checkbox option</subtask>
+          <subtask id="4.3">If built-in option exists, enable it via Admin Panel → Config → Community</subtask>
+          <subtask id="4.4">If not, add link to guidelines in registration confirmation email</subtask>
+          <subtask id="4.5">Alternatively, add guidelines reference to welcome message for new users</subtask>
+          <subtask id="4.6">Verify new users see guidelines reference during or immediately after signup</subtask>
+        </subtasks>
+      </task>
+      <task id="5" ac="1.6.13">
+        <description>Optimize content copy for tone and clarity</description>
+        <subtasks>
+          <subtask id="5.1">Review About page copy for friendly, approachable tone (not corporate/stiff)</subtask>
+          <subtask id="5.2">Review Guidelines copy for clarity (specific examples of do/don't)</subtask>
+          <subtask id="5.3">Ensure both pages are technically accessible but not overly jargon-heavy</subtask>
+          <subtask id="5.4">Get copy approval from Product Manager or Community Manager</subtask>
+          <subtask id="5.5">Implement any feedback and republish</subtask>
+        </subtasks>
+      </task>
+      <task id="6" ac="1.6.14">
+        <description>Optimize SEO meta tags</description>
+        <subtasks>
+          <subtask id="6.1">For About page: Set meta title "About Vibecoding Community - Our Mission"</subtask>
+          <subtask id="6.2">For About page: Add meta description (150-160 chars, include "vibecoding")</subtask>
+          <subtask id="6.3">For Guidelines page: Set meta title "Community Guidelines - Vibecoding Community"</subtask>
+          <subtask id="6.4">For Guidelines page: Add meta description (include "community guidelines", "vibecoding")</subtask>
+          <subtask id="6.5">Verify meta tags render correctly in HTML source</subtask>
+          <subtask id="6.6">Test social sharing previews (Twitter Card, Open Graph) for both pages</subtask>
+        </subtasks>
+      </task>
+      <task id="7">
+        <description>Visual styling and branding consistency</description>
+        <subtasks>
+          <subtask id="7.1">Ensure pages use vibecoding theme colors and fonts (from Story 1.4)</subtask>
+          <subtask id="7.2">Add any custom headers or visual elements (optional hero image/icon)</subtask>
+          <subtask id="7.3">Apply Markdown formatting for readability (headings, lists, bold text)</subtask>
+          <subtask id="7.4">Ensure pages are responsive (mobile, tablet, desktop)</subtask>
+          <subtask id="7.5">Test dark mode rendering for both pages</subtask>
+        </subtasks>
+      </task>
+      <task id="8">
+        <description>Performance and accessibility validation</description>
+        <subtasks>
+          <subtask id="8.1">Run Lighthouse audit for About page (performance, accessibility, SEO)</subtask>
+          <subtask id="8.2">Run Lighthouse audit for Guidelines page (performance, accessibility, SEO)</subtask>
+          <subtask id="8.3">Verify page load time < 1.5 seconds (static pages should be fast)</subtask>
+          <subtask id="8.4">Test keyboard navigation (tab through links)</subtask>
+          <subtask id="8.5">Verify screen reader compatibility (headings structure, alt text if images)</subtask>
+        </subtasks>
+      </task>
+      <task id="9">
+        <description>Deploy to staging and validate</description>
+        <subtasks>
+          <subtask id="9.1">Deploy pages to staging environment (or verify if Forem Pages auto-publish)</subtask>
+          <subtask id="9.2">Visual QA on staging (verify content displays correctly)</subtask>
+          <subtask id="9.3">Test footer navigation links work correctly</subtask>
+          <subtask id="9.4">Test direct URL access (/about, /community-guidelines)</subtask>
+          <subtask id="9.5">Get stakeholder approval before production deploy</subtask>
+        </subtasks>
+      </task>
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    <criterion id="AC-1.6.1">Mission: Building the vibecoding movement</criterion>
+    <criterion id="AC-1.6.2">What makes this community special</criterion>
+    <criterion id="AC-1.6.3">Connection to ANYON (authentic, not salesy)</criterion>
+    <criterion id="AC-1.6.4">Team introduction (optional)</criterion>
+    <criterion id="AC-1.6.5">Contact information</criterion>
+    <criterion id="AC-1.6.6">Expected behavior (respectful, constructive, authentic)</criterion>
+    <criterion id="AC-1.6.7">Content quality standards (substantive posts, no spam)</criterion>
+    <criterion id="AC-1.6.8">Self-promotion policy (ANYON showcases encouraged, other products limited)</criterion>
+    <criterion id="AC-1.6.9">Moderation policy and consequences</criterion>
+    <criterion id="AC-1.6.10">How to report issues</criterion>
+    <criterion id="AC-1.6.11">Accessible from footer navigation</criterion>
+    <criterion id="AC-1.6.12">Referenced in signup flow</criterion>
+    <criterion id="AC-1.6.13">Written in friendly, approachable tone</criterion>
+    <criterion id="AC-1.6.14">SEO-optimized</criterion>
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification - Epic 1: Platform Foundation & Branding</title>
+        <section>Story 1.6: About Page & Community Guidelines</section>
+        <snippet>/about page: Mission, ANYON connection, team introduction; /community-guidelines page: Behavior standards, moderation policy; Footer navigation links; SEO optimization</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification - Epic 1</title>
+        <section>Module Breakdown - Static Page Generator</section>
+        <snippet>Create About and Guidelines pages via Forem Pages feature (Markdown content). Routes: /about, /community-guidelines. No custom code required - admin panel-driven.</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Technical Specification - Epic 1</title>
+        <section>Data Models - pages table</section>
+        <snippet>Static pages (About, Guidelines) stored in Forem's `pages` database table with Markdown content, automatically rendered with site theme.</snippet>
+      </doc>
+      <doc>
+        <path>docs/PRD.md</path>
+        <title>Product Requirements Document</title>
+        <section>Forem Features - Basic moderation tools</section>
+        <snippet>Forem provides basic moderation tools out-of-box. Community guidelines emphasize quality vibecoding content.</snippet>
+      </doc>
+      <doc>
+        <path>docs/PRD.md</path>
+        <title>Product Requirements Document</title>
+        <section>Vibecoding-Specific Customizations</section>
+        <snippet>About page positioning ANYON as leading vibecoding platform; Custom footer with ANYON links and social media; Community guidelines emphasizing quality vibecoding content.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture Document</title>
+        <section>Strategic Approach - Brownfield First</section>
+        <snippet>Hybrid customization strategy - leverage Forem's infrastructure while adding targeted customizations. Upgrade Safety: Document and isolate all customizations.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <file>
+        <path>app/models/page.rb</path>
+        <kind>model</kind>
+        <symbol>Page</symbol>
+        <lines>1-135</lines>
+        <reason>Core Page model that handles static pages. Supports Markdown rendering, slug validation, SEO fields (social_image, description), and multiple templates (contained, full_within_layout, nav_bar_included, json, css, txt).</reason>
+      </file>
+      <file>
+        <path>app/controllers/pages_controller.rb</path>
+        <kind>controller</kind>
+        <symbol>PagesController</symbol>
+        <lines>1-155</lines>
+        <reason>Handles rendering of static pages. Includes predefined routes for common pages like /about, /code-of-conduct, /privacy, /terms. Shows how to create and serve pages via slug-based routing.</reason>
+      </file>
+      <file>
+        <path>db/schema.rb</path>
+        <kind>schema</kind>
+        <symbol>pages table</symbol>
+        <lines>937-955</lines>
+        <reason>Database schema for pages table. Columns: slug, title, description, body_markdown, body_html, processed_html, social_image, template, is_top_level_path, landing_page, subforem_id. Unique index on (slug, subforem_id).</reason>
+      </file>
+    </code>
+    <dependencies>
+      <ecosystem name="ruby">
+        <package>rails</package>
+        <package>forem</package>
+        <package>markdown_processor</package>
+      </ecosystem>
+      <ecosystem name="javascript">
+        <package>node 20.x</package>
+        <package>yarn 1.22.18</package>
+      </ecosystem>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Forem's built-in Pages feature - no custom code files required for this story</constraint>
+    <constraint>Pages must be created via Forem Admin Panel (Admin Panel → Pages → New Page)</constraint>
+    <constraint>Content must use Markdown formatting for body_markdown field</constraint>
+    <constraint>Slugs must be unique: "about" and "community-guidelines"</constraint>
+    <constraint>Template must be "contained" (default) or other TEMPLATE_OPTIONS if needed</constraint>
+    <constraint>SEO fields required: title, description, social_image (optional)</constraint>
+    <constraint>Footer navigation links added via Admin Panel → Customization → Config → Footer</constraint>
+    <constraint>Performance requirement: Page load time < 1.5 seconds for static pages</constraint>
+    <constraint>Lighthouse scores: SEO > 90, Accessibility > 90, Performance > 90</constraint>
+    <constraint>Content tone: Friendly, approachable, not corporate/stiff</constraint>
+    <constraint>ANYON positioning: Authentic connection, not sales pitch</constraint>
+    <constraint>Git commits (if config files changed): Use [VIBECODING] prefix</constraint>
+    <constraint>No custom CSS classes needed unless: Use .vibecoding-about-* or .vibecoding-guidelines-* pattern</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Page Model</name>
+      <kind>ActiveRecord Model</kind>
+      <signature>Page.create(slug: String, title: String, description: String, body_markdown: Text, template: String, is_top_level_path: Boolean, social_image: String)</signature>
+      <path>app/models/page.rb</path>
+    </interface>
+    <interface>
+      <name>PagesController#show</name>
+      <kind>Controller Action</kind>
+      <signature>GET /page/:slug or GET /:slug (if is_top_level_path=true)</signature>
+      <path>app/controllers/pages_controller.rb</path>
+    </interface>
+    <interface>
+      <name>PagesController#about</name>
+      <kind>Controller Action</kind>
+      <signature>GET /about → finds Page with slug "about"</signature>
+      <path>app/controllers/pages_controller.rb:23-27</path>
+    </interface>
+    <interface>
+      <name>MarkdownProcessor::Parser</name>
+      <kind>Service</kind>
+      <signature>Converts body_markdown to processed_html for rendering</signature>
+      <path>app/models/page.rb:78-85</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+This story is primarily admin panel-driven content creation with no custom code. Testing approach focuses on:
+1. Content Review: Mission clarity, tone, completeness, SEO optimization
+2. Navigation Testing: Verify footer links work, pages accessible via URL
+3. Responsive Testing: Pages render correctly on mobile, tablet, desktop
+4. Accessibility Testing: Lighthouse accessibility score > 90, keyboard navigation, screen reader compatibility
+5. Performance Testing: Page load time < 1.5 seconds, Lighthouse performance score > 90
+6. SEO Validation: Meta tags present and optimized (title, description, OG tags)
+7. No unit tests required for admin panel-driven content pages
+
+Testing Framework: Lighthouse for performance/accessibility/SEO audits. Manual QA for content review and navigation.
+    </standards>
+    <locations>
+      <location>Manual testing via browser (Chrome DevTools, Lighthouse)</location>
+      <location>Forem existing test suite (if any spec files exist for PagesController)</location>
+      <location>spec/requests/pages_spec.rb (if creating integration tests)</location>
+    </locations>
+    <ideas>
+      <idea ac="AC-1.6.1, AC-1.6.2, AC-1.6.3, AC-1.6.4, AC-1.6.5">
+        <description>Test GET /about returns 200 and includes mission statement, ANYON connection, contact info</description>
+        <approach>Integration test or manual QA verification</approach>
+      </idea>
+      <idea ac="AC-1.6.6, AC-1.6.7, AC-1.6.8, AC-1.6.9, AC-1.6.10">
+        <description>Test GET /community-guidelines returns 200 and includes behavior standards, moderation policy, reporting mechanism</description>
+        <approach>Integration test or manual QA verification</approach>
+      </idea>
+      <idea ac="AC-1.6.11">
+        <description>Test footer navigation contains "About" and "Community Guidelines" links on all pages</description>
+        <approach>Manual QA on homepage, article pages, user profile pages</approach>
+      </idea>
+      <idea ac="AC-1.6.12">
+        <description>Test new user signup flow references or links to guidelines</description>
+        <approach>Manual QA or integration test of signup flow</approach>
+      </idea>
+      <idea ac="AC-1.6.13">
+        <description>Content tone review: Verify friendly, approachable tone (not corporate)</description>
+        <approach>Content review by Product Manager or Community Manager</approach>
+      </idea>
+      <idea ac="AC-1.6.14">
+        <description>SEO validation: Run Lighthouse audit, verify meta tags, test social sharing previews</description>
+        <approach>Lighthouse CLI or browser DevTools, Twitter Card Validator, Facebook Debugger</approach>
+      </idea>
+      <idea>
+        <description>Accessibility validation: Lighthouse accessibility score > 90, keyboard navigation, screen reader compatibility</description>
+        <approach>Lighthouse audit, manual keyboard tab testing, NVDA/JAWS screen reader testing</approach>
+      </idea>
+      <idea>
+        <description>Performance validation: Page load time < 1.5 seconds, Lighthouse performance score > 90</description>
+        <approach>Lighthouse performance audit, Chrome DevTools Network tab</approach>
+      </idea>
+    </ideas>
+  </tests>
+</story-context>

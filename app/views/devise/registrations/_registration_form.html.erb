@@ -41,7 +41,7 @@
       <% if params[:state] == "new-user" %>
         <% unless ForemInstance.invitation_only? %>
           <div class="mt-6 align-center fs-s fw-normal fs-italic px-0 s:px-9 color-secondary">
-            <%= t("devise.registrations.agreement.sign_up_html", privacy_path: privacy_path, terms_path: terms_path, code_of_conduct_path: code_of_conduct_path) %>
+            <%= t("devise.registrations.agreement.sign_up_html", privacy_path: privacy_path, terms_path: terms_path, code_of_conduct_path: code_of_conduct_path, community_guidelines_path: community_guidelines_path) %>
           </div>
         <% end %>
 
@@ -64,7 +64,7 @@
             <%= render partial: "shared/authentication/email_login_form" %>
 
             <div class="mt-6 align-center fs-s fw-normal fs-italic px-0 s:px-9 color-secondary">
-              <%= t("devise.registrations.agreement.sign_in_html", privacy_path: privacy_path, terms_path: terms_path, code_of_conduct_path: code_of_conduct_path) %>
+              <%= t("devise.registrations.agreement.sign_in_html", privacy_path: privacy_path, terms_path: terms_path, code_of_conduct_path: code_of_conduct_path, community_guidelines_path: community_guidelines_path) %>
             </div>
 
             <hr class="registration__hr" />

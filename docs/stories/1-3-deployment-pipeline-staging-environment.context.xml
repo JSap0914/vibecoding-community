@@ -1,0 +1,330 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>3</storyId>
+    <title>Deployment Pipeline & Staging Environment</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-3-deployment-pipeline-staging-environment.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>DevOps Engineer</asA>
+    <iWant>to establish an automated deployment pipeline to staging and production environments</iWant>
+    <soThat>we can deploy vibecoding community updates safely and efficiently</soThat>
+    <tasks>
+      - Task 1: Select and configure hosting platform (AC: 1.3.1)
+        - Subtask 1.1: Evaluate Railway vs Render for Rails deployment
+        - Subtask 1.2: Create account and project on selected platform
+        - Subtask 1.3: Configure staging environment with managed PostgreSQL and Redis
+        - Subtask 1.4: Verify staging URL is accessible
+
+      - Task 2: Create Dockerfile and deployment configuration (AC: 1.3.1, 1.3.11)
+        - Subtask 2.1: Create Dockerfile for Rails application (if not existing)
+        - Subtask 2.2: Create railway.toml or render.yaml configuration
+        - Subtask 2.3: Configure environment-specific settings (staging vs production)
+        - Subtask 2.4: Test Docker build locally
+
+      - Task 3: Configure environment variables and secrets (AC: 1.3.8)
+        - Subtask 3.1: Create .env.staging template with all required variables
+        - Subtask 3.2: Configure secrets in hosting platform dashboard
+        - Subtask 3.3: Set up DATABASE_URL, REDIS_URL, SECRET_KEY_BASE
+        - Subtask 3.4: Configure external service keys (Cloudinary, Sentry, SendGrid)
+        - Subtask 3.5: Document all required environment variables
+
+      - Task 4: Implement health check endpoint (AC: 1.3.9)
+        - Subtask 4.1: Create HealthController with database and Redis checks
+        - Subtask 4.2: Add /health route to config/routes.rb
+        - Subtask 4.3: Test health check endpoint locally
+        - Subtask 4.4: Configure hosting platform to use /health for monitoring
+
+      - Task 5: Configure CI/CD pipeline with GitHub Actions (AC: 1.3.2, 1.3.3)
+        - Subtask 5.1: Create .github/workflows/ci.yml workflow file
+        - Subtask 5.2: Configure test job (RSpec, Jest, Rubocop)
+        - Subtask 5.3: Configure build job (Docker image build)
+        - Subtask 5.4: Set up PR requirement (tests must pass)
+        - Subtask 5.5: Add GitHub Actions secrets for deployment
+
+      - Task 6: Configure automated deployment to staging (AC: 1.3.4, 1.3.6)
+        - Subtask 6.1: Add deploy-staging job to GitHub Actions
+        - Subtask 6.2: Configure automatic trigger on merge to main
+        - Subtask 6.3: Add database migration step (rails db:migrate)
+        - Subtask 6.4: Add health check verification after deployment
+        - Subtask 6.5: Test complete deployment flow
+
+      - Task 7: Configure asset pipeline and CDN (AC: 1.3.7)
+        - Subtask 7.1: Verify asset precompilation in deployment process
+        - Subtask 7.2: Set up Cloudflare CDN for static assets
+        - Subtask 7.3: Configure DNS for staging domain
+        - Subtask 7.4: Test asset delivery via CDN
+
+      - Task 8: Set up error tracking and monitoring (AC: 1.3.9)
+        - Subtask 8.1: Configure Sentry for staging environment
+        - Subtask 8.2: Test error capture and reporting
+        - Subtask 8.3: Set up email alerts for deployment failures
+        - Subtask 8.4: Configure hosting platform monitoring
+
+      - Task 9: Document production deployment process (AC: 1.3.5, 1.3.10)
+        - Subtask 9.1: Create docs/deployment-runbook.md
+        - Subtask 9.2: Document manual production deployment steps
+        - Subtask 9.3: Document rollback procedure (one-click via platform)
+        - Subtask 9.4: Document smoke test checklist post-deployment
+        - Subtask 9.5: Document emergency procedures
+
+      - Task 10: Testing and validation
+        - Subtask 10.1: Create test PR to verify CI pipeline
+        - Subtask 10.2: Merge to main and verify auto-deploy to staging
+        - Subtask 10.3: Test health check endpoint on staging
+        - Subtask 10.4: Verify database migrations run automatically
+        - Subtask 10.5: Test rollback procedure
+        - Subtask 10.6: Verify all external services are connected
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+    AC-1.3.1: Staging environment deployed and accessible
+    AC-1.3.2: CI/CD pipeline (GitHub Actions) configured
+    AC-1.3.3: Automated tests run on every pull request
+    AC-1.3.4: Deployment to staging on merge to main branch
+    AC-1.3.5: Production deployment process documented (manual approval gate)
+    AC-1.3.6: Database migration automation
+    AC-1.3.7: Asset precompilation and CDN upload
+    AC-1.3.8: Environment variable management (secrets)
+    AC-1.3.9: Health check endpoints validation
+    AC-1.3.10: Rollback procedure documentation
+    AC-1.3.11: Staging environment mirrors production configuration
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic 1 Technical Specification</title>
+        <section>Story 1.3: Deployment Pipeline & Staging Environment</section>
+        <snippet>Staging environment on Railway/Render with CI/CD via GitHub Actions. Automated tests on pull requests, database migration automation, health check endpoints, rollback procedures, error tracking (Sentry) and log aggregation.</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic 1 Technical Specification</title>
+        <section>Health Check Endpoint Implementation</section>
+        <snippet>HealthController with database and Redis connectivity checks. Returns JSON with status, timestamp, version (GIT_SHA), and service statuses. Skip CSRF token for monitoring access.</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic 1 Technical Specification</title>
+        <section>CI/CD Pipeline Structure</section>
+        <snippet>GitHub Actions workflow with test job (RSpec, Jest, Rubocop, Brakeman security scan, Docker build) and deploy-staging job (triggered on main branch, runs migrations, restarts app, validates health check).</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic 1 Technical Specification</title>
+        <section>Environment Variables</section>
+        <snippet>Required: DATABASE_URL, REDIS_URL, RAILS_ENV, SECRET_KEY_BASE, FOREM_OWNER_SECRET. External services: CLOUDINARY_URL, SENTRY_DSN, SENDGRID_API_KEY.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture Document</title>
+        <section>Decision Summary - Hosting Platform</section>
+        <snippet>Railway or Render selected for hosting. Simple deployment, affordable ($30-50/month), auto-scaling. Managed PostgreSQL 14+ and Redis 4.7.1+ included. GitHub Actions for CI/CD.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture Document</title>
+        <section>Infrastructure Stack</section>
+        <snippet>Cloudflare Free for CDN and DDoS protection. Cloudinary for image hosting. SendGrid for email. Sentry for error tracking. GitHub Actions for CI/CD pipeline.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture Document</title>
+        <section>Epic 1: Platform Foundation & Branding</section>
+        <snippet>External Services: Cloudflare CDN, Railway/Render hosting. Target cost $30-50/month for MVP with auto-scaling built-in. Easy migration path to AWS/GCP if needed at scale.</snippet>
+      </doc>
+      <doc>
+        <path>docs/PRD.md</path>
+        <title>Product Requirements Document</title>
+        <section>Technical Context</section>
+        <snippet>Forem platform provides battle-tested community infrastructure (Ruby on Rails 7.0.8, Preact 10.20.2, PostgreSQL with 106+ tables). Focus on growth and community building rather than rebuilding infrastructure.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>Dockerfile</path>
+        <kind>configuration</kind>
+        <symbol>Multi-stage Docker build</symbol>
+        <lines>1-50</lines>
+        <reason>Existing Forem Dockerfile with Ruby 3.3.0, multi-stage build, and optimizations. Can be used as-is or customized for vibecoding deployment.</reason>
+      </artifact>
+      <artifact>
+        <path>.github/workflows/ci.yml</path>
+        <kind>ci-config</kind>
+        <symbol>CI Pipeline</symbol>
+        <lines>1-50</lines>
+        <reason>Existing GitHub Actions CI with test jobs (RSpec, Jest, asset compilation). Needs customization for vibecoding deployment to Railway/Render staging.</reason>
+      </artifact>
+      <artifact>
+        <path>app/controllers/concerns/api/health_checks_controller.rb</path>
+        <kind>controller-concern</kind>
+        <symbol>Api::HealthChecksController</symbol>
+        <lines>1-51</lines>
+        <reason>Existing health check implementation with app, database, and cache endpoints. Checks PostgreSQL and Redis connectivity. Already functional - can be used as-is.</reason>
+      </artifact>
+      <artifact>
+        <path>app/controllers/api/v1/health_checks_controller.rb</path>
+        <kind>controller</kind>
+        <symbol>Api::V1::HealthChecksController</symbol>
+        <lines>1-10</lines>
+        <reason>API v1 health check controller - includes concern and token authentication. Requires health-check-token header unless from localhost.</reason>
+      </artifact>
+      <artifact>
+        <path>config/routes/api.rb</path>
+        <kind>routes</kind>
+        <symbol>health_checks routes</symbol>
+        <lines>43-49</lines>
+        <reason>Existing health check routes at /api/v1/health_checks/{app,database,cache}. Already configured and functional.</reason>
+      </artifact>
+      <artifact>
+        <path>.env.example</path>
+        <kind>configuration</kind>
+        <symbol>Environment variable template</symbol>
+        <lines>1-80</lines>
+        <reason>Vibecoding-customized environment template with DATABASE_URL, REDIS_URL, FOREM_OWNER_SECRET, and service keys. Template for .env.staging creation.</reason>
+      </artifact>
+      <artifact>
+        <path>Gemfile</path>
+        <kind>dependencies</kind>
+        <symbol>Ruby gems</symbol>
+        <lines>1-50</lines>
+        <reason>Forem dependencies including Rails 7.0.8, Devise, Sidekiq, Cloudinary, Sentry (honeybadger). Understand existing stack for deployment configuration.</reason>
+      </artifact>
+      <artifact>
+        <path>package.json</path>
+        <kind>dependencies</kind>
+        <symbol>Node packages</symbol>
+        <lines>1-30</lines>
+        <reason>Frontend dependencies with Node 20.x, yarn 1.22.18, Jest tests, ESBuild. Understand build process for CI/CD pipeline.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <ruby>
+        <gem name="rails" version="7.0.8.4" />
+        <gem name="puma" version="~6.0" />
+        <gem name="sidekiq" version="~6.5" />
+        <gem name="devise" version="~4.8" />
+        <gem name="pg" version="~1.4" />
+        <gem name="redis" version="~4.7" />
+        <gem name="cloudinary" version="~1.23" />
+        <gem name="honeybadger" version="~4.12" note="Error tracking - can use or switch to Sentry" />
+      </ruby>
+      <javascript>
+        <package name="node" version="20.x" />
+        <package name="yarn" version="1.22.18" />
+        <package name="jest" version="latest" />
+        <package name="esbuild" version="latest" />
+      </javascript>
+      <infrastructure>
+        <service name="PostgreSQL" version="14+" type="managed" />
+        <service name="Redis" version="4.7.1+" type="managed" />
+        <service name="Railway/Render" type="hosting" note="Choice to be made during implementation" />
+        <service name="Cloudflare" type="cdn" tier="free" />
+        <service name="Cloudinary" type="image-hosting" tier="free" />
+        <service name="SendGrid" type="email" tier="free" />
+        <service name="Sentry" type="error-tracking" tier="free" note="5k events/month" />
+      </infrastructure>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    - Use Forem's existing Dockerfile as base - do not create from scratch
+    - Customize existing .github/workflows/ci.yml instead of creating new workflow
+    - Health check endpoints already exist at /api/v1/health_checks/{app,database,cache}
+    - Must add deploy-staging job to existing CI workflow for automated deployment
+    - Railway or Render platform selection - both viable, Railway slightly preferred for Rails
+    - Staging environment must mirror production (same DB, Redis, services)
+    - All custom code must use [VIBECODING] git commit prefix
+    - Custom logging must use Rails.logger.info("VIBECODING: ...") format
+    - Files use snake_case naming convention
+    - Cost constraint: Target $30-50/month for MVP hosting
+    - CI/CD pipeline execution time: &lt; 10 minutes
+    - Staging deployment time: &lt; 5 minutes from code push
+    - Must configure GitHub Actions secrets for deployment credentials
+    - Must set up FOREM_OWNER_SECRET, DATABASE_URL, REDIS_URL, SECRET_KEY_BASE
+    - External service keys needed: CLOUDINARY_URL, SENTRY_DSN, SENDGRID_API_KEY
+    - Database migrations must run automatically on deployment
+    - Rollback procedure must be documented and tested
+    - Health checks must validate after deployment completes
+  </constraints>
+
+  <interfaces>
+    <api>
+      <name>Health Check API (existing)</name>
+      <kind>REST endpoint</kind>
+      <signature>GET /api/v1/health_checks/app - Returns {message: "App is up"}</signature>
+      <path>app/controllers/api/v1/health_checks_controller.rb</path>
+    </api>
+    <api>
+      <name>Database Health Check (existing)</name>
+      <kind>REST endpoint</kind>
+      <signature>GET /api/v1/health_checks/database - Returns {message: "Database connected"} or 500 error</signature>
+      <path>app/controllers/concerns/api/health_checks_controller.rb</path>
+    </api>
+    <api>
+      <name>Cache Health Check (existing)</name>
+      <kind>REST endpoint</kind>
+      <signature>GET /api/v1/health_checks/cache - Tests all Redis instances (main, sessions, sidekiq, rpush)</signature>
+      <path>app/controllers/concerns/api/health_checks_controller.rb</path>
+    </api>
+    <config>
+      <name>Railway Deployment Config (to create)</name>
+      <kind>Platform configuration</kind>
+      <signature>railway.toml - Defines build, deploy, healthcheck, and service configuration</signature>
+      <path>railway.toml (new file)</path>
+    </config>
+    <config>
+      <name>Render Deployment Config (alternative)</name>
+      <kind>Platform configuration</kind>
+      <signature>render.yaml - Defines services, databases, environment, and deploy settings</signature>
+      <path>render.yaml (new file if Render chosen)</path>
+    </config>
+    <config>
+      <name>GitHub Actions Deploy Job (to create)</name>
+      <kind>CI/CD workflow</kind>
+      <signature>deploy-staging job in .github/workflows/ci.yml triggered on main branch push</signature>
+      <path>.github/workflows/ci.yml (modify existing)</path>
+    </config>
+  </interfaces>
+  <tests>
+    <standards>
+      Story 1.3 is primarily an infrastructure/deployment story with manual testing focus. The existing codebase uses RSpec for backend tests and Jest for frontend tests, both integrated into the CI pipeline. Health check endpoints already have comprehensive test coverage in spec/requests/api/v1/health_checks_spec.rb. Testing approach for this story emphasizes deployment validation and smoke testing rather than new unit tests.
+
+      Testing Frameworks:
+      - RSpec (backend): spec/ directory with request specs, controller specs, and integration specs
+      - Jest (frontend): app/javascript/ with .test.jsx files
+      - GitHub Actions: .github/workflows/ci.yml runs all tests on PR
+
+      Deployment Testing Pattern:
+      - Manual smoke tests after staging deployment
+      - Health check endpoint validation (already has tests)
+      - CI/CD pipeline execution verification
+      - Rollback procedure testing
+    </standards>
+    <locations>
+      - spec/requests/api/v1/health_checks_spec.rb (existing health check tests)
+      - .github/workflows/ci.yml (CI pipeline tests)
+      - Manual testing checklist in docs/deployment-runbook.md (to be created)
+    </locations>
+    <ideas>
+      <test criteria="AC-1.3.1" idea="Manual: Access staging URL, verify homepage loads, check SSL certificate" />
+      <test criteria="AC-1.3.2" idea="Manual: Create test PR, verify GitHub Actions workflow triggers and runs" />
+      <test criteria="AC-1.3.3" idea="Automated: CI workflow should fail if RSpec or Jest tests fail. Manual: Create failing test to verify PR blocking" />
+      <test criteria="AC-1.3.4" idea="Manual: Merge PR to main, verify deploy-staging job triggers within 1 minute, staging updates within 5 minutes" />
+      <test criteria="AC-1.3.5" idea="Manual: Follow production deployment runbook, verify each step works, document any issues" />
+      <test criteria="AC-1.3.6" idea="Automated: Add test migration, deploy, verify migration ran. Check rails db:migrate:status on staging" />
+      <test criteria="AC-1.3.7" idea="Manual: Upload image, verify Cloudflare CDN serves it (check response headers for cf-cache-status)" />
+      <test criteria="AC-1.3.8" idea="Manual: Verify all environment variables set correctly in Railway/Render dashboard. Test app boots with correct config" />
+      <test criteria="AC-1.3.9" idea="Automated: Use existing health_checks_spec.rb. Manual: GET /api/v1/health_checks/app, /database, /cache all return 200 OK" />
+      <test criteria="AC-1.3.10" idea="Manual: Trigger rollback via hosting platform, verify previous version restored within 2 minutes, health checks pass" />
+      <test criteria="AC-1.3.11" idea="Manual: Compare staging and production configs, verify DATABASE_URL, REDIS_URL, services match (managed instances)" />
+    </ideas>
+  </tests>
+</story-context>

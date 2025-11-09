@@ -47,8 +47,8 @@ en:
       updated_not_active: "Your password has been changed successfully."
     registrations:
       agreement:
-        sign_in_html: "By signing in, you are agreeing to our <a href=\"%{privacy_path}\">privacy policy</a>, <a href=\"%{terms_path}\">terms of use</a> and <a href=\"%{code_of_conduct_path}\">code of conduct</a>."
-        sign_up_html: "By signing up, you are agreeing to our <a href=\"%{privacy_path}\">privacy policy</a>, <a href=\"%{terms_path}\">terms of use</a> and <a href=\"%{code_of_conduct_path}\">code of conduct</a>."
+        sign_in_html: "By signing in, you are agreeing to our <a href=\"%{privacy_path}\">privacy policy</a>, <a href=\"%{terms_path}\">terms of use</a>, <a href=\"%{code_of_conduct_path}\">code of conduct</a>, and <a href=\"%{community_guidelines_path}\">community guidelines</a>."
+        sign_up_html: "By signing up, you are agreeing to our <a href=\"%{privacy_path}\">privacy policy</a>, <a href=\"%{terms_path}\">terms of use</a>, <a href=\"%{code_of_conduct_path}\">code of conduct</a>, and <a href=\"%{community_guidelines_path}\">community guidelines</a>."
       already_have_an_account_html: "Already have an account? <a href=\"%{sign_up_path}\">Log in</a>."
       create_account_html: "New to %{community_name}? <a href=\"%{sign_up_path}\">Create account</a>."
       destroyed: "Bye! Your account has been successfully cancelled. We hope to see you again soon."

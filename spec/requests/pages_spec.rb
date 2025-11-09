@@ -148,10 +148,87 @@ RSpec.describe "Pages" do
     end
   end
 
+  # VIBECODING CUSTOMIZATION - Epic 1, Story 1.6
   describe "GET /about" do
-    it "has proper headline" do
+    it "returns success status" do
       get "/about"
-      expect(response.body).to include("About")
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "includes about page title" do
+      get "/about"
+      expect(response.body).to include("About Vibecoding Community")
+    end
+
+    it "includes mission statement" do
+      get "/about"
+      expect(response.body).to include("Our Mission")
+      expect(response.body).to include("Building the vibecoding movement")
+    end
+
+    it "includes what makes community special section" do
+      get "/about"
+      expect(response.body).to include("What Makes This Community Special")
+      expect(response.body).to include("Natural Language Development")
+    end
+
+    it "includes ANYON connection section" do
+      get "/about"
+      expect(response.body).to include("The ANYON Connection")
+      expect(response.body).to include("ANYON")
+    end
+
+    it "includes contact information" do
+      get "/about"
+      expect(response.body).to include("Contact Us")
+      expect(response.body).to include("hello@vibecoding.community")
+    end
+
+    it "includes get involved section" do
+      get "/about"
+      expect(response.body).to include("Get Involved")
+    end
+  end
+
+  # VIBECODING CUSTOMIZATION - Epic 1, Story 1.6
+  describe "GET /community-guidelines" do
+    it "returns success status" do
+      get "/community-guidelines"
+      expect(response).to have_http_status(:ok)
+    end
+
+    it "includes community guidelines title" do
+      get "/community-guidelines"
+      expect(response.body).to include("Community Guidelines")
+    end
+
+    it "includes expected behavior section" do
+      get "/community-guidelines"
+      expect(response.body).to include("Expected Behavior")
+      expect(response.body).to include("Be Respectful")
+      expect(response.body).to include("Be Constructive")
+      expect(response.body).to include("Be Authentic")
+    end
+
+    it "includes content quality standards" do
+      get "/community-guidelines"
+      expect(response.body).to include("Content Quality Standards")
+    end
+
+    it "includes self-promotion policy" do
+      get "/community-guidelines"
+      expect(response.body).to include("Self-Promotion Policy")
+      expect(response.body).to include("ANYON project showcases")
+    end
+
+    it "includes moderation policy" do
+      get "/community-guidelines"
+      expect(response.body).to include("Moderation Policy")
+    end
+
+    it "includes how to report issues section" do
+      get "/community-guidelines"
+      expect(response.body).to include("How to Report Issues")
     end
   end
 
@@ -330,6 +407,106 @@ RSpec.describe "Pages" do
         url = Faker::Internet.url
         get "/report-abuse", headers: { referer: url }
         expect(response.body).to include(url)
+      end
+    end
+  end
+
+  # VIBECODING CUSTOMIZATION - Epic 1, Story 1.5
+  # Landing page tests
+  describe "GET / (landing page)" do
+    context "when landing page is the root route" do
+      it "renders successfully" do
+        get "/"
+        expect(response).to have_http_status(:ok)
+      end
+
+      it "displays the hero section with title and tagline" do
+        get "/"
+        expect(response.body).to include("Welcome to Vibecoding Community")
+        expect(response.body).to include("Where AI meets natural language development")
+      end
+
+      it "displays the value proposition section" do
+        get "/"
+        expect(response.body).to include("Why Vibecoding?")
+        expect(response.body).to include("AI-Powered Development")
+        expect(response.body).to include("Community-Driven")
+        expect(response.body).to include("Learn & Grow")
+      end
+
+      it "displays community stats section" do
+        create_list(:user, 5, registered: true)
+        create_list(:article, 3, published: true, published_at: 1.day.ago)
+
+        get "/"
+
+        expect(response.body).to include("Join Our Growing Community")
+        expect(response.body).to include("Community Members")
+        expect(response.body).to include("Posts Shared")
+        expect(response.body).to include("Projects Showcased")
+      end
+
+      it "displays CTA buttons" do
+        get "/"
+        expect(response.body).to include("Join the Community")
+        expect(response.body).to include("Explore Posts")
+      end
+
+      it "includes SEO meta tags" do
+        get "/"
+        expect(response.body).to include("Vibecoding Community - Where AI Meets Natural Language Development")
+        expect(response.body).to include('name="description"')
+        expect(response.body).to include("vibecoding")
+        expect(response.body).to include('property="og:title"')
+        expect(response.body).to include('property="twitter:card"')
+      end
+
+      context "when featured articles exist" do
+        let!(:user) { create(:user) }
+        let!(:articles) { create_list(:article, 6, user: user, published: true, published_at: 1.day.ago) }
+
+        it "displays featured articles section" do
+          get "/"
+          expect(response.body).to include("Recent Posts from the Community")
+        end
+
+        it "displays article titles and links" do
+          get "/"
+          articles.each do |article|
+            expect(response.body).to include(CGI.escapeHTML(article.title))
+          end
+        end
+
+        it "displays Read More links" do
+          get "/"
+          expect(response.body).to include("Read More")
+        end
+      end
+
+      context "when no featured articles exist" do
+        before do
+          Article.destroy_all
+        end
+
+        it "displays placeholder message" do
+          get "/"
+          expect(response.body).to include("No posts yet, but great things are coming!")
+        end
+
+        it "displays appropriate CTA for signed out users" do
+          get "/"
+          expect(response.body).to include("Join to Start Posting")
+        end
+      end
+
+      it "includes ANYON reference" do
+        get "/"
+        expect(response.body).to include("ANYON")
+      end
+
+      it "is cacheable" do
+        get "/"
+        expect(response.headers["Cache-Control"]).to be_present
       end
     end
   end

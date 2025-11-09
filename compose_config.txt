@@ -1,0 +1,595 @@
+﻿name: vibecoding-community
+services:
+  chrome:
+    environment:
+      CONNECTION_TIMEOUT: "600000"
+      PORT: "3333"
+    image: browserless/chrome:latest
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3333
+        published: "3333"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+        target: /app
+        bind:
+          create_host_path: true
+  devcontainer:
+    build:
+      context: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+      dockerfile: Dockerfile
+      args:
+        PG_MAJOR: "13"
+      target: development
+    command:
+      - sleep
+      - infinity
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: true
+      redis:
+        condition: service_healthy
+        required: true
+    environment:
+      CHROME_URL: http://chrome:3333
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432
+      DATABASE_URL_TEST: postgres://postgres:postgres@localhost:5432
+      MALLOC_ARENA_MAX: "2"
+      REDIS_URL: redis://localhost:6379/
+      WEB_CONCURRENCY: "2"
+    image: ghcr.io/forem/forem:1.0.0-development
+    network_mode: host
+    ports:
+      - mode: ingress
+        target: 3000
+        published: "3000"
+        protocol: tcp
+    stdin_open: true
+    tmpfs:
+      - /workspaces/forem/tmp/pids
+    tty: true
+    volumes:
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+        target: /workspaces/forem
+        bind:
+          create_host_path: true
+      - type: volume
+        source: bundle
+        target: /usr/local/bundle
+        volume: {}
+      - type: volume
+        source: cypress
+        target: /root/.cache/Cypress
+        volume: {}
+      - type: volume
+        source: rails_cache
+        target: /workspaces/forem/tmp/cache
+        volume: {}
+      - type: volume
+        source: assets
+        target: /workspaces/forem/public/assets
+        volume: {}
+      - type: volume
+        source: node_modules
+        target: /workspaces/forem/node_modules
+        volume: {}
+      - type: volume
+        source: history
+        target: /usr/local/hist
+        volume: {}
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community\.dockerdev\.psqlrc
+        target: /root/.psqlrc
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: bind
+        source: /var/run/docker.sock
+        target: /var/run/docker-host.sock
+        bind:
+          create_host_path: true
+  esbuild:
+    build:
+      context: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+      dockerfile: Dockerfile
+      args:
+        PG_MAJOR: "13"
+      target: development
+    command:
+      - yarn
+      - build
+      - --watch
+    environment:
+      NODE_ENV: development
+      RAILS_ENV: development
+      WEBPACKER_DEV_SERVER_HOST: 0.0.0.0
+      YARN_CACHE_FOLDER: /app/node_modules/.yarn-cache
+    image: ghcr.io/forem/forem:1.0.0-development
+    networks:
+      default: null
+    tmpfs:
+      - /tmp
+      - /app/tmp/pids
+    volumes:
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+        target: /app
+        bind:
+          create_host_path: true
+      - type: volume
+        source: bundle
+        target: /usr/local/bundle
+        volume: {}
+      - type: volume
+        source: node_modules
+        target: /app/node_modules
+        volume: {}
+      - type: volume
+        source: builds
+        target: /app/assets/builds
+        volume: {}
+  postgres:
+    environment:
+      POSTGRES_PASSWORD: postgres
+      PSQL_HISTFILE: /usr/local/hist/.psql_history
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - pg_isready -U postgres -h 127.0.0.1
+      interval: 5s
+    image: postgres:13
+    network_mode: bridge
+    ports:
+      - mode: ingress
+        target: 5432
+        protocol: tcp
+      - mode: ingress
+        target: 5432
+        published: "5432"
+        protocol: tcp
+    volumes:
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community\.dockerdev\.psqlrc
+        target: /root/.psqlrc
+        read_only: true
+        bind:
+          create_host_path: true
+      - type: volume
+        source: postgres
+        target: /var/lib/postgresql/data
+        volume: {}
+      - type: volume
+        source: history
+        target: /usr/local/hist
+        volume: {}
+  rails:
+    build:
+      context: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+      dockerfile: Dockerfile
+      args:
+        PG_MAJOR: "13"
+      target: development
+    command:
+      - bundle
+      - exec
+      - rails
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: true
+      redis:
+        condition: service_healthy
+        required: true
+    environment:
+      BOOTSNAP_CACHE_DIR: /usr/local/bundle/_bootsnap
+      CHROME_URL: http://chrome:3333
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432
+      DATABASE_URL_TEST: postgres://postgres:postgres@postgres:5432
+      HISTFILE: /usr/local/hist/.bash_history
+      IRB_HISTFILE: /usr/local/hist/.irb_history
+      MALLOC_ARENA_MAX: "2"
+      NODE_ENV: development
+      PSQL_HISTFILE: /usr/local/hist/.psql_history
+      RAILS_ENV: development
+      REDIS_URL: redis://redis:6379/
+      WEB_CONCURRENCY: "2"
+      XDG_DATA_HOME: /app/tmp/cache
+      YARN_CACHE_FOLDER: /app/node_modules/.yarn-cache
+    image: ghcr.io/forem/forem:1.0.0-development
+    networks:
+      default: null
+    stdin_open: true
+    tmpfs:
+      - /tmp
+      - /app/tmp/pids
+    tty: true
+    volumes:
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+        target: /app
+        bind:
+          create_host_path: true
+      - type: volume
+        source: bundle
+        target: /usr/local/bundle
+        volume: {}
+      - type: volume
+        source: cypress
+        target: /root/.cache/Cypress
+        volume: {}
+      - type: volume
+        source: rails_cache
+        target: /app/tmp/cache
+        volume: {}
+      - type: volume
+        source: assets
+        target: /app/public/assets
+        volume: {}
+      - type: volume
+        source: node_modules
+        target: /app/node_modules
+        volume: {}
+      - type: volume
+        source: builds
+        target: /app/public/builds
+        volume: {}
+      - type: volume
+        source: history
+        target: /usr/local/hist
+        volume: {}
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community\.dockerdev\.psqlrc
+        target: /root/.psqlrc
+        read_only: true
+        bind:
+          create_host_path: true
+  redis:
+    healthcheck:
+      test:
+        - CMD-SHELL
+        - redis-cli ping
+      timeout: 3s
+      interval: 1s
+      retries: 30
+    image: redis:7.0-alpine
+    network_mode: bridge
+    ports:
+      - mode: ingress
+        target: 6379
+        protocol: tcp
+      - mode: ingress
+        target: 6379
+        published: "6379"
+        protocol: tcp
+    volumes:
+      - type: volume
+        source: redis
+        target: /data
+        volume: {}
+  rspec_system:
+    build:
+      context: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+      dockerfile: Dockerfile
+      args:
+        PG_MAJOR: "13"
+      target: development
+    depends_on:
+      chrome:
+        condition: service_started
+        required: true
+    environment:
+      BOOTSNAP_CACHE_DIR: /usr/local/bundle/_bootsnap
+      CHROME_URL: http://chrome:3333
+      DATABASE_URL: postgres://postgres:postgres@localhost:5432
+      DATABASE_URL_TEST: postgres://postgres:postgres@localhost:5432
+      HISTFILE: /usr/local/hist/.bash_history
+      IRB_HISTFILE: /usr/local/hist/.irb_history
+      MALLOC_ARENA_MAX: "2"
+      NODE_ENV: development
+      PSQL_HISTFILE: /usr/local/hist/.psql_history
+      RAILS_ENV: development
+      REDIS_URL: redis://localhost:6379/
+      WEB_CONCURRENCY: "2"
+      XDG_DATA_HOME: /app/tmp/cache
+      YARN_CACHE_FOLDER: /app/node_modules/.yarn-cache
+    image: ghcr.io/forem/forem:1.0.0-development
+    networks:
+      default: null
+    stdin_open: true
+    tmpfs:
+      - /tmp
+      - /app/tmp/pids
+    tty: true
+    volumes:
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+        target: /app
+        bind:
+          create_host_path: true
+      - type: volume
+        source: bundle
+        target: /usr/local/bundle
+        volume: {}
+      - type: volume
+        source: cypress
+        target: /root/.cache/Cypress
+        volume: {}
+      - type: volume
+        source: rails_cache
+        target: /app/tmp/cache
+        volume: {}
+      - type: volume
+        source: assets
+        target: /app/public/assets
+        volume: {}
+      - type: volume
+        source: node_modules
+        target: /app/node_modules
+        volume: {}
+      - type: volume
+        source: builds
+        target: /app/public/builds
+        volume: {}
+      - type: volume
+        source: history
+        target: /usr/local/hist
+        volume: {}
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community\.dockerdev\.psqlrc
+        target: /root/.psqlrc
+        read_only: true
+        bind:
+          create_host_path: true
+  sidekiq:
+    build:
+      context: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+      dockerfile: Dockerfile
+      args:
+        PG_MAJOR: "13"
+      target: development
+    command:
+      - bundle
+      - exec
+      - sidekiq
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: true
+      redis:
+        condition: service_healthy
+        required: true
+    environment:
+      BOOTSNAP_CACHE_DIR: /usr/local/bundle/_bootsnap
+      CHROME_URL: http://chrome:3333
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432
+      DATABASE_URL_TEST: postgres://postgres:postgres@postgres:5432
+      HISTFILE: /usr/local/hist/.bash_history
+      IRB_HISTFILE: /usr/local/hist/.irb_history
+      MALLOC_ARENA_MAX: "2"
+      NODE_ENV: development
+      PSQL_HISTFILE: /usr/local/hist/.psql_history
+      RAILS_ENV: development
+      REDIS_URL: redis://redis:6379/
+      WEB_CONCURRENCY: "2"
+      XDG_DATA_HOME: /app/tmp/cache
+      YARN_CACHE_FOLDER: /app/node_modules/.yarn-cache
+    image: ghcr.io/forem/forem:1.0.0-development
+    networks:
+      default: null
+    stdin_open: true
+    tmpfs:
+      - /tmp
+      - /app/tmp/pids
+    tty: true
+    volumes:
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+        target: /app
+        bind:
+          create_host_path: true
+      - type: volume
+        source: bundle
+        target: /usr/local/bundle
+        volume: {}
+      - type: volume
+        source: cypress
+        target: /root/.cache/Cypress
+        volume: {}
+      - type: volume
+        source: rails_cache
+        target: /app/tmp/cache
+        volume: {}
+      - type: volume
+        source: assets
+        target: /app/public/assets
+        volume: {}
+      - type: volume
+        source: node_modules
+        target: /app/node_modules
+        volume: {}
+      - type: volume
+        source: builds
+        target: /app/public/builds
+        volume: {}
+      - type: volume
+        source: history
+        target: /usr/local/hist
+        volume: {}
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community\.dockerdev\.psqlrc
+        target: /root/.psqlrc
+        read_only: true
+        bind:
+          create_host_path: true
+  web:
+    build:
+      context: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+      dockerfile: Dockerfile
+      args:
+        PG_MAJOR: "13"
+      target: development
+    command:
+      - bundle
+      - exec
+      - rails
+      - server
+      - -b
+      - 0.0.0.0
+    depends_on:
+      esbuild:
+        condition: service_started
+        required: true
+      sidekiq:
+        condition: service_started
+        required: true
+    environment:
+      BOOTSNAP_CACHE_DIR: /usr/local/bundle/_bootsnap
+      CHROME_URL: http://chrome:3333
+      DATABASE_URL: postgres://postgres:postgres@postgres:5432
+      DATABASE_URL_TEST: postgres://postgres:postgres@postgres:5432
+      HISTFILE: /usr/local/hist/.bash_history
+      IRB_HISTFILE: /usr/local/hist/.irb_history
+      MALLOC_ARENA_MAX: "2"
+      NODE_ENV: development
+      PSQL_HISTFILE: /usr/local/hist/.psql_history
+      RAILS_ENV: development
+      REDIS_URL: redis://redis:6379/
+      WEB_CONCURRENCY: "2"
+      XDG_DATA_HOME: /app/tmp/cache
+      YARN_CACHE_FOLDER: /app/node_modules/.yarn-cache
+    image: ghcr.io/forem/forem:1.0.0-development
+    networks:
+      default: null
+    ports:
+      - mode: ingress
+        target: 3000
+        published: "3000"
+        protocol: tcp
+    stdin_open: true
+    tmpfs:
+      - /tmp
+      - /app/tmp/pids
+    tty: true
+    volumes:
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community
+        target: /app
+        bind:
+          create_host_path: true
+      - type: volume
+        source: bundle
+        target: /usr/local/bundle
+        volume: {}
+      - type: volume
+        source: cypress
+        target: /root/.cache/Cypress
+        volume: {}
+      - type: volume
+        source: rails_cache
+        target: /app/tmp/cache
+        volume: {}
+      - type: volume
+        source: assets
+        target: /app/public/assets
+        volume: {}
+      - type: volume
+        source: node_modules
+        target: /app/node_modules
+        volume: {}
+      - type: volume
+        source: builds
+        target: /app/public/builds
+        volume: {}
+      - type: volume
+        source: history
+        target: /usr/local/hist
+        volume: {}
+      - type: bind
+        source: C:\Users\Han\Documents\SKKU 1st Grade\Vibecoding_community\vibecoding-community\.dockerdev\.psqlrc
+        target: /root/.psqlrc
+        read_only: true
+        bind:
+          create_host_path: true
+networks:
+  default:
+    name: vibecoding-community_default
+volumes:
+  assets:
+    name: vibecoding-community_assets
+  builds:
+    name: vibecoding-community_builds
+  bundle:
+    name: vibecoding-community_bundle
+  cypress:
+    name: vibecoding-community_cypress
+  history:
+    name: vibecoding-community_history
+  node_modules:
+    name: vibecoding-community_node_modules
+  postgres:
+    name: vibecoding-community_postgres
+  rails_cache:
+    name: vibecoding-community_rails_cache
+  redis:
+    name: vibecoding-community_redis
+x-app:
+  build:
+    args:
+      PG_MAJOR: "13"
+    context: .
+    target: development
+  environment:
+    NODE_ENV: development
+    RAILS_ENV: development
+  image: ghcr.io/forem/forem:1.0.0-development
+  tmpfs:
+    - /tmp
+    - /app/tmp/pids
+x-backend:
+  build:
+    args:
+      PG_MAJOR: "13"
+    context: .
+    target: development
+  depends_on:
+    postgres:
+      condition: service_healthy
+    redis:
+      condition: service_healthy
+  environment:
+    BOOTSNAP_CACHE_DIR: /usr/local/bundle/_bootsnap
+    CHROME_URL: http://chrome:3333
+    DATABASE_URL: postgres://postgres:postgres@localhost:5432
+    DATABASE_URL_TEST: postgres://postgres:postgres@localhost:5432
+    HISTFILE: /usr/local/hist/.bash_history
+    IRB_HISTFILE: /usr/local/hist/.irb_history
+    MALLOC_ARENA_MAX: 2
+    NODE_ENV: development
+    PSQL_HISTFILE: /usr/local/hist/.psql_history
+    RAILS_ENV: development
+    REDIS_URL: redis://localhost:6379/
+    WEB_CONCURRENCY: "2"
+    XDG_DATA_HOME: /app/tmp/cache
+    YARN_CACHE_FOLDER: /app/node_modules/.yarn-cache
+  image: ghcr.io/forem/forem:1.0.0-development
+  stdin_open: true
+  tmpfs:
+    - /tmp
+    - /app/tmp/pids
+  tty: true
+  volumes:
+    - .:/app:cached
+    - bundle:/usr/local/bundle
+    - cypress:/root/.cache/Cypress
+    - rails_cache:/app/tmp/cache
+    - assets:/app/public/assets
+    - node_modules:/app/node_modules
+    - builds:/app/public/builds
+    - history:/usr/local/hist
+    - ./.dockerdev/.psqlrc:/root/.psqlrc:ro

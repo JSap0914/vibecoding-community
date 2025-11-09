@@ -1,0 +1,346 @@
+<story-context id="bmad/bmm/workflows/4-implementation/story-context/template" v="1.0">
+  <metadata>
+    <epicId>1</epicId>
+    <storyId>5</storyId>
+    <title>Landing Page & Community Onboarding</title>
+    <status>drafted</status>
+    <generatedAt>2025-11-09</generatedAt>
+    <generator>BMAD Story Context Workflow</generator>
+    <sourceStoryPath>docs/stories/1-5-landing-page-community-onboarding.md</sourceStoryPath>
+  </metadata>
+
+  <story>
+    <asA>Content Strategist</asA>
+    <iWant>a compelling landing page that explains vibecoding and encourages signups</iWant>
+    <soThat>visitors understand the community value and join</soThat>
+    <tasks>
+- Task 1: Create landing page view and route (AC: 1.5.1, 1.5.2, 1.5.3, 1.5.4, 1.5.5)
+  - Subtask 1.1: Create app/views/pages/landing.html.erb file
+  - Subtask 1.2: Configure route in config/routes.rb to set root path to landing page
+  - Subtask 1.3: Create controller action if needed (or use Forem's Pages controller)
+  - Subtask 1.4: Implement hero section with title, tagline, and CTA buttons
+  - Subtask 1.5: Add value proposition section (3-column layout recommended)
+
+- Task 2: Implement community stats section (AC: 1.5.3)
+  - Subtask 2.1: Create placeholders for user count, post count, project count
+  - Subtask 2.2: Query database for current counts (User.count, Article.published.count)
+  - Subtask 2.3: Display stats in visually appealing cards/badges
+  - Subtask 2.4: Add icons for each stat type
+  - Subtask 2.5: Consider caching stats query for performance
+
+- Task 3: Add featured content section (AC: 1.5.4)
+  - Subtask 3.1: Query recent published articles (e.g., Article.published.order(created_at: :desc).limit(6))
+  - Subtask 3.2: Display articles in grid layout (2x3 or 3x2)
+  - Subtask 3.3: Show article cover image, title, author, and excerpt
+  - Subtask 3.4: Add "Read More" links to each article
+  - Subtask 3.5: Handle edge case when no articles exist (show placeholder message)
+
+- Task 4: Create compelling content copy (AC: 1.5.6, 1.5.7)
+  - Subtask 4.1: Write hero tagline explaining vibecoding value
+  - Subtask 4.2: Write 3-point value proposition (why join this community)
+  - Subtask 4.3: Include subtle ANYON reference (e.g., "Powered by tools like ANYON")
+  - Subtask 4.4: Review copy for tone: friendly, approachable, technical but accessible
+  - Subtask 4.5: Get copy approval from Product Manager or Marketing team
+
+- Task 5: Add visuals and branding (AC: 1.5.8)
+  - Subtask 5.1: Add hero background image or gradient using vibecoding brand colors
+  - Subtask 5.2: Include icons for value proposition points (AI, community, learning, etc.)
+  - Subtask 5.3: Ensure visuals align with vibecoding brand (from Story 1.4)
+  - Subtask 5.4: Optimize images for web (WebP format, lazy loading)
+  - Subtask 5.5: Upload images to Cloudinary for CDN delivery
+
+- Task 6: Implement CTA buttons (AC: 1.5.5)
+  - Subtask 6.1: Add "Join the Community" button linking to /users/sign_up
+  - Subtask 6.2: Add "Explore Posts" button linking to /latest or /top
+  - Subtask 6.3: Style buttons using vibecoding theme (Crayons or custom CSS)
+  - Subtask 6.4: Ensure buttons are keyboard-accessible and screen-reader friendly
+  - Subtask 6.5: Add hover and focus states for buttons
+
+- Task 7: Optimize SEO meta tags (AC: 1.5.10)
+  - Subtask 7.1: Set page title: "Vibecoding Community - Where AI Meets Natural Language Development"
+  - Subtask 7.2: Add meta description (150-160 characters, include "vibecoding" keyword)
+  - Subtask 7.3: Configure Open Graph tags (og:title, og:description, og:image, og:url)
+  - Subtask 7.4: Configure Twitter Card tags (twitter:card, twitter:title, twitter:description, twitter:image)
+  - Subtask 7.5: Add canonical URL tag
+
+- Task 8: Performance optimization (AC: 1.5.9)
+  - Subtask 8.1: Optimize images (compress, use WebP, lazy load below-the-fold content)
+  - Subtask 8.2: Minimize critical CSS (inline above-the-fold styles)
+  - Subtask 8.3: Defer non-critical JavaScript
+  - Subtask 8.4: Cache database queries for stats and featured posts (fragment caching)
+  - Subtask 8.5: Run Lighthouse audit, target LCP < 2.5 seconds
+
+- Task 9: Responsive design and cross-browser testing (AC: 1.5.9)
+  - Subtask 9.1: Test landing page on mobile viewport (375px, 414px)
+  - Subtask 9.2: Test landing page on tablet viewport (768px, 1024px)
+  - Subtask 9.3: Test landing page on desktop viewport (1440px+)
+  - Subtask 9.4: Test on Chrome, Firefox, Safari, Edge (latest versions)
+  - Subtask 9.5: Verify hero image scales properly across viewports
+
+- Task 10: Deploy to staging and validate
+  - Subtask 10.1: Deploy landing page to staging environment
+  - Subtask 10.2: Visual QA on staging (compare to design mockups if available)
+  - Subtask 10.3: Run Lighthouse audit on staging (performance, accessibility, SEO)
+  - Subtask 10.4: Test all CTAs and navigation links work correctly
+  - Subtask 10.5: Get stakeholder approval before production deploy
+    </tasks>
+  </story>
+
+  <acceptanceCriteria>
+AC-1.5.1: Hero section: "Welcome to Vibecoding Community" with tagline
+AC-1.5.2: Value proposition: What vibecoding is and why it matters
+AC-1.5.3: Social proof: Placeholder for community stats (users, posts, projects)
+AC-1.5.4: Featured content: Recent high-quality posts
+AC-1.5.5: Clear CTA: "Join the Community" and "Explore Posts"
+AC-1.5.6: Explains vibecoding (AI + natural language development)
+AC-1.5.7: Positions ANYON subtly (not heavy-handed)
+AC-1.5.8: Uses engaging visuals (hero image, icons)
+AC-1.5.9: Loads in < 2 seconds (LCP)
+AC-1.5.10: SEO meta tags are optimized for "vibecoding community"
+  </acceptanceCriteria>
+
+  <artifacts>
+    <docs>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic 1 Technical Specification</title>
+        <section>Story 1.5: Landing Page & Community Onboarding</section>
+        <snippet>Homepage with hero section, value proposition, featured content. Clear "Join the Community" and "Explore Posts" CTAs. SEO meta tags optimized for "vibecoding community". Page load time &lt; 2 seconds (LCP).</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic 1 Technical Specification</title>
+        <section>Workflow 4: Content Page Creation</section>
+        <snippet>Create landing page view at app/views/pages/landing.html.erb with hero section, value proposition (3 columns), featured content, and CTA buttons. Configure route: root to: 'pages#landing' in config/routes.rb.</snippet>
+      </doc>
+      <doc>
+        <path>docs/tech-spec-epic-1.md</path>
+        <title>Epic 1 Technical Specification</title>
+        <section>Data Flow for Landing Page</section>
+        <snippet>Browser -&gt; Rails: GET / → ArticlesController fetches recent articles → Database query for published articles → Render landing.html.erb with featured content.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture Document</title>
+        <section>Executive Summary</section>
+        <snippet>Vibecoding Community is a brownfield customization of Forem platform. Hybrid strategy: extend don't rebuild, customize only where necessary. Key principles: Brownfield First, Upgrade Safety, Cost Efficiency.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture Document</title>
+        <section>Pattern 2: Namespaced Customizations</section>
+        <snippet>All custom code must be namespaced. CSS classes: use Crayons (.crayons-btn) or prefix (.vibecoding-*). Git commits: [VIBECODING] prefix. Code comments: # VIBECODING CUSTOMIZATION.</snippet>
+      </doc>
+      <doc>
+        <path>docs/architecture.md</path>
+        <title>Architecture Document</title>
+        <section>Project Structure</section>
+        <snippet>Custom assets in app/assets/images/vibecoding/ for brand assets, app/assets/stylesheets/vibecoding/ for custom theme. Custom config in config/initializers/vibecoding_customizations.rb.</snippet>
+      </doc>
+      <doc>
+        <path>docs/PRD.md</path>
+        <title>Product Requirements Document</title>
+        <section>Executive Summary</section>
+        <snippet>Vibecoding Community is the central hub for developer vibecoders. Vision: go-to destination where vibecoders share experiences, discover techniques, showcase ANYON-built projects. Community-driven growth funnel with authentic engagement.</snippet>
+      </doc>
+      <doc>
+        <path>docs/PRD.md</path>
+        <title>Product Requirements Document</title>
+        <section>What Makes This Special</section>
+        <snippet>Movement Building: defining "vibecoding" as category - practice of using natural language and AI to build production apps. Community becomes canonical source for vibecoding knowledge, patterns, best practices.</snippet>
+      </doc>
+      <doc>
+        <path>docs/stories/1-4-custom-vibecoding-theme-visual-identity.md</path>
+        <title>Story 1.4 - Custom Vibecoding Theme</title>
+        <section>Dev Notes - Learnings</section>
+        <snippet>Story 1.4 establishes vibecoding brand theme and visual identity. Brand colors defined for use in hero section, CTA buttons. Crayons design system configured. Asset directory: app/assets/images/vibecoding/.</snippet>
+      </doc>
+    </docs>
+    <code>
+      <artifact>
+        <path>app/controllers/pages_controller.rb</path>
+        <kind>controller</kind>
+        <symbol>PagesController</symbol>
+        <lines>1-50</lines>
+        <reason>Existing Forem controller for static pages (about, privacy, terms, etc.). Can extend with custom landing action for vibecoding homepage.</reason>
+      </artifact>
+      <artifact>
+        <path>app/models/article.rb</path>
+        <kind>model</kind>
+        <symbol>Article.published</symbol>
+        <lines>380-382</lines>
+        <reason>Scope for querying published articles: where(published: true).where("published_at &lt;= ?", Time.current). Use for featured content section.</reason>
+      </artifact>
+      <artifact>
+        <path>app/models/user.rb</path>
+        <kind>model</kind>
+        <symbol>User.registered</symbol>
+        <lines>179</lines>
+        <reason>Scope for counting registered users: where(registered: true). Use for community stats (user count).</reason>
+      </artifact>
+      <artifact>
+        <path>config/routes.rb</path>
+        <kind>routes</kind>
+        <symbol>get "/privacy", to: "pages#privacy"</symbol>
+        <lines>313-323</lines>
+        <reason>Existing PagesController routes pattern. Add root route here: root to: "pages#landing" to override Forem's default homepage.</reason>
+      </artifact>
+      <artifact>
+        <path>app/views/pages/about.en.html.erb</path>
+        <kind>view</kind>
+        <symbol>about page template</symbol>
+        <lines>N/A</lines>
+        <reason>Example of existing Forem page view structure. Reference for creating landing.html.erb with similar ERB patterns.</reason>
+      </artifact>
+    </code>
+    <dependencies>
+      <ruby>
+        <gem name="rails" note="Ruby on Rails framework - MVC, routing, ActiveRecord ORM" />
+        <gem name="devise" version="~> 4.8" note="Authentication - provides new_user_registration_path for signup CTA" />
+        <gem name="cloudinary" version="~> 1.23" note="Image CDN - use for hero image and icon hosting/delivery" />
+        <gem name="acts-as-taggable-on" version="~> 10.0" note="Tagging - Article model uses for tag associations" />
+        <gem name="carrierwave" version="~> 2.2" note="File uploads - handles article cover images" />
+        <gem name="pundit" note="Authorization - may be used for access control" />
+      </ruby>
+      <javascript>
+        <package name="preact" note="Forem uses Preact for frontend components, but landing page is server-rendered ERB" />
+        <package name="esbuild" note="JavaScript bundler - configured in esbuild.config.mjs" />
+        <package name="cypress" version="^13.7.2" note="E2E testing framework - for testing landing page interactions" />
+        <package name="jest" note="JavaScript unit testing - not needed for view-heavy story" />
+      </javascript>
+      <frameworks>
+        <framework name="Forem" note="Open-source community platform (DEV.to codebase) - brownfield customization base" />
+        <framework name="Crayons Design System" note="Forem's CSS component library - use for buttons, cards, layouts" />
+        <framework name="PostgreSQL" note="Database - stores User and Article records" />
+        <framework name="Redis" note="Caching backend - Rails.cache for fragment caching" />
+        <framework name="Docker Compose" note="Local development environment orchestration" />
+      </frameworks>
+    </dependencies>
+  </artifacts>
+
+  <constraints>
+    <constraint>Use Forem's existing PagesController - extend with custom landing action, don't create new controller unless necessary</constraint>
+    <constraint>CSS classes must use Crayons design system (.crayons-btn, .crayons-card) or vibecoding namespace (.vibecoding-landing-*)</constraint>
+    <constraint>All custom files must include comment: &lt;!-- VIBECODING CUSTOMIZATION - Epic 1, Story 1.5 --&gt;</constraint>
+    <constraint>Git commits must use [VIBECODING] prefix per architecture Pattern 2</constraint>
+    <constraint>Landing page must be server-side rendered (ERB) for SEO, not client-side React/Preact component</constraint>
+    <constraint>Route configuration: root to: 'pages#landing' in config/routes.rb to override Forem default homepage</constraint>
+    <constraint>Performance: Fragment caching required for stats and featured articles queries (cache key expires_in: 1.hour)</constraint>
+    <constraint>Performance: LCP &lt; 2.5 seconds, Lighthouse Performance Score &gt; 90</constraint>
+    <constraint>Accessibility: WCAG 2.1 Level A compliance (per Story 1.4 standards), keyboard navigation for CTAs</constraint>
+    <constraint>Responsive design: Test on mobile (375px), tablet (768px), desktop (1440px+) viewports</constraint>
+    <constraint>Image optimization: Use WebP format, lazy loading for below-fold content, CDN delivery via Cloudinary</constraint>
+    <constraint>Featured content edge case: Show placeholder message if Article.published.count == 0</constraint>
+  </constraints>
+  <interfaces>
+    <interface>
+      <name>Article.published</name>
+      <kind>ActiveRecord scope</kind>
+      <signature>Article.published.order(created_at: :desc).limit(6)</signature>
+      <path>app/models/article.rb:380-382</path>
+    </interface>
+    <interface>
+      <name>User.registered</name>
+      <kind>ActiveRecord scope</kind>
+      <signature>User.registered.count</signature>
+      <path>app/models/user.rb:179</path>
+    </interface>
+    <interface>
+      <name>PagesController actions pattern</name>
+      <kind>Controller action</kind>
+      <signature>def landing; @user_count = User.registered.count; @featured_articles = Article.published.order(created_at: :desc).limit(6); end</signature>
+      <path>app/controllers/pages_controller.rb:1-50</path>
+    </interface>
+    <interface>
+      <name>Crayons Button Component</name>
+      <kind>CSS class</kind>
+      <signature>&lt;%= link_to "Join the Community", new_user_registration_path, class: "crayons-btn crayons-btn--primary" %&gt;</signature>
+      <path>Forem design system (Crayons)</path>
+    </interface>
+    <interface>
+      <name>Rails Fragment Caching</name>
+      <kind>Rails helper</kind>
+      <signature>Rails.cache.fetch('landing_featured_articles', expires_in: 1.hour) { Article.published.order(created_at: :desc).limit(6) }</signature>
+      <path>Rails caching API</path>
+    </interface>
+  </interfaces>
+  <tests>
+    <standards>
+Forem uses a comprehensive testing strategy combining RSpec (Ruby backend), Jest (JavaScript unit tests), and Cypress (E2E integration tests). For this landing page story:
+
+**Primary Testing Approach: Visual QA + Performance Testing**
+- This is a view-heavy story with minimal backend logic
+- Focus on visual QA, performance metrics (Lighthouse), SEO validation, and cross-browser testing
+- RSpec request specs for route/controller if custom action added
+- Cypress E2E tests for user interactions (CTA clicks, navigation)
+- NO unit tests required for ERB views
+
+**Testing Stack:**
+- RSpec (~5.x): Backend request/integration specs in spec/requests/ and spec/system/
+- Cypress (^13.7.2): E2E tests in cypress/e2e/
+- Lighthouse CLI: Performance audits (LCP, FCP, accessibility)
+- Manual cross-browser testing: Chrome, Firefox, Safari, Edge
+
+**Acceptance Testing Pattern (from existing Forem tests):**
+- Request specs: GET /landing → expects 200 response, rendered content
+- System specs: Capybara-based browser automation for user flows
+- E2E specs: Cypress tests for CTA clicks, navigation paths
+    </standards>
+    <locations>
+- spec/requests/pages_spec.rb - Request specs for PagesController routes
+- spec/system/homepage/ - System specs for homepage user flows
+- cypress/e2e/seededFlows/homeFeedFlows/ - Cypress E2E tests for home feed
+- cypress/e2e/seededFlows/adminFlows/pages/landingPage.spec.js - Existing landing page E2E test (reference)
+    </locations>
+    <ideas>
+**Test Idea 1: Landing Page Route and Controller (RSpec Request Spec)**
+- AC Mapped: AC-1.5.1, AC-1.5.2, AC-1.5.3, AC-1.5.4, AC-1.5.5
+- Test: GET / → expects 200 response, landing page rendered (not Forem default)
+- Test: Response includes "Welcome to Vibecoding Community" hero text
+- Test: Response includes community stats (user count, article count, project count)
+- Test: Response includes featured articles section with up to 6 articles
+- Test: Response includes "Join the Community" and "Explore Posts" CTA buttons
+- Location: spec/requests/landing_page_spec.rb (new file)
+
+**Test Idea 2: Landing Page User Interaction (Cypress E2E)**
+- AC Mapped: AC-1.5.5
+- Test: Click "Join the Community" button → redirects to /users/sign_up
+- Test: Click "Explore Posts" button → redirects to /latest or /top
+- Test: Featured article cards are clickable and navigate to article page
+- Test: Hero section displays correctly on mobile viewport (375px)
+- Location: cypress/e2e/seededFlows/landingPageFlows/landingPageCTAs.spec.js (new file)
+
+**Test Idea 3: Performance and SEO Validation (Lighthouse + Manual)**
+- AC Mapped: AC-1.5.9, AC-1.5.10
+- Test: Run Lighthouse audit → LCP &lt; 2.5 seconds
+- Test: Run Lighthouse audit → Performance score &gt; 90
+- Test: Run Lighthouse audit → Accessibility score &gt; 90 (WCAG 2.1 Level A)
+- Test: Inspect page meta tags → title includes "Vibecoding Community"
+- Test: Inspect page meta tags → description includes "vibecoding" keyword
+- Test: Inspect page meta tags → Open Graph tags present (og:title, og:description, og:image)
+- Location: Manual testing checklist / CI pipeline script
+
+**Test Idea 4: Responsive Design Verification (Manual Cross-Browser)**
+- AC Mapped: AC-1.5.8, AC-1.5.9
+- Test: Mobile viewport (375px, 414px) → hero text legible, CTAs accessible, images scale
+- Test: Tablet viewport (768px, 1024px) → layout adapts, featured content grid displays
+- Test: Desktop viewport (1440px+) → full layout, all sections visible
+- Test: Chrome, Firefox, Safari, Edge (latest versions) → consistent rendering
+- Location: Manual testing checklist
+
+**Test Idea 5: Featured Content Edge Cases (RSpec Request Spec)**
+- AC Mapped: AC-1.5.4
+- Test: When Article.published.count == 0 → displays placeholder message instead of empty grid
+- Test: When Article.published.count &lt; 6 → displays all available articles (no empty slots)
+- Test: Featured articles include cover image, title, author, excerpt
+- Location: spec/requests/landing_page_spec.rb
+
+**Test Idea 6: Community Stats Accuracy (RSpec Request Spec)**
+- AC Mapped: AC-1.5.3
+- Test: @user_count matches User.registered.count
+- Test: @article_count matches Article.published.count
+- Test: Stats are cached for performance (Rails.cache.fetch)
+- Location: spec/requests/landing_page_spec.rb
+    </ideas>
+  </tests>
+</story-context>

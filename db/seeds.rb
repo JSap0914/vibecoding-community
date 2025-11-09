@@ -529,6 +529,12 @@ end
 Faker::Config.locale = loc
 
 ##############################################################################
+# VIBECODING CUSTOMIZATION - Epic 1, Story 1.6
+# Load About and Community Guidelines pages
+
+Dir[Rails.root.join("db/seeds/pages/*.rb")].each { |file| load file }
+
+##############################################################################
 
 seeder.create_if_none(Survey) do
   # Marvel Movie Preferences Survey (Single Choice)

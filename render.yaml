@@ -1,0 +1,167 @@
+# VIBECODING: Render Deployment Configuration
+# Documentation: https://render.com/docs/blueprint-spec
+
+services:
+  # Web Service (Rails Application)
+  - type: web
+    name: vibecoding-staging
+    env: ruby
+    region: oregon  # Change to your preferred region
+    plan: starter  # $7/month - upgrade to standard ($25/month) for production
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    buildTarget: production
+    buildCommand: echo "Building with Docker"
+
+    # Auto-deploy on push to main branch
+    branch: main
+
+    # Environment variables (also set in Render dashboard)
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: NODE_ENV
+        value: production
+      - key: RAILS_SERVE_STATIC_FILES
+        value: true
+      - key: RAILS_LOG_TO_STDOUT
+        value: true
+      - key: APP_PROTOCOL
+        value: https://
+      - key: PORT
+        value: 3000
+      - key: WEB_CONCURRENCY
+        value: 2
+      - key: RAILS_MAX_THREADS
+        value: 10
+      - key: DATABASE_POOL_SIZE
+        value: 10
+      - key: SENTRY_ENVIRONMENT
+        value: staging
+
+      # Secrets (set in Render dashboard - do NOT hardcode)
+      - key: SECRET_KEY_BASE
+        sync: false  # Set manually in dashboard
+      - key: FOREM_OWNER_SECRET
+        sync: false
+      - key: APP_DOMAIN
+        sync: false  # Set to your Render domain
+      - key: DATABASE_URL
+        fromDatabase:
+          name: vibecoding-postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: vibecoding-redis
+          property: connectionString
+      - key: CLOUDINARY_URL
+        sync: false  # Optional - set in dashboard
+      - key: SENTRY_DSN
+        sync: false  # Optional - set in dashboard
+      - key: SENDGRID_API_KEY
+        sync: false  # Optional - set in dashboard
+
+    # Health check
+    healthCheckPath: /api/v1/health_checks/app
+
+    # Pre-deploy command (database migrations)
+    preDeployCommand: bundle exec rails db:migrate
+
+    # Auto-scaling (optional - requires higher plan)
+    # autoDeploy: true
+    # numInstances: 1
+
+    # Custom domain (configure in Render dashboard after initial deploy)
+    # domains:
+    #   - staging.vibecoding.community
+
+  # Background Worker Service (Sidekiq)
+  - type: worker
+    name: vibecoding-sidekiq-staging
+    env: ruby
+    region: oregon
+    plan: starter
+    dockerfilePath: ./Dockerfile
+    dockerContext: .
+    buildTarget: production
+    branch: main
+
+    # Override command to run Sidekiq
+    startCommand: bundle exec sidekiq -C config/sidekiq.yml
+
+    # Shared environment variables (inherit from web service)
+    envVars:
+      - key: RAILS_ENV
+        value: production
+      - key: NODE_ENV
+        value: production
+      - key: SECRET_KEY_BASE
+        sync: false
+      - key: DATABASE_URL
+        fromDatabase:
+          name: vibecoding-postgres
+          property: connectionString
+      - key: REDIS_URL
+        fromService:
+          type: redis
+          name: vibecoding-redis
+          property: connectionString
+
+databases:
+  # PostgreSQL Database
+  - name: vibecoding-postgres
+    databaseName: vibecoding_staging
+    user: vibecoding
+    plan: starter  # $7/month - 256MB RAM, 1GB storage
+    region: oregon
+    # ipAllowList: []  # Restrict access if needed
+
+  # Redis Cache
+  - name: vibecoding-redis
+    plan: starter  # $10/month - 256MB RAM
+    region: oregon
+    maxmemoryPolicy: allkeys-lru  # Evict least recently used keys when memory full
+    # ipAllowList: []
+
+# Cron Jobs (optional - for scheduled tasks)
+# cronJobs:
+#   - name: daily-cleanup
+#     schedule: "0 2 * * *"  # 2 AM daily
+#     command: bundle exec rails runner 'DailyCleanupJob.perform_now'
+#     envVars:
+#       - key: RAILS_ENV
+#         value: production
+
+# Notes for Render Setup:
+# =======================
+# 1. Sign up at render.com
+# 2. Connect your GitHub repository
+# 3. Create new Blueprint from this render.yaml
+# 4. Set required secrets in Render dashboard:
+#    - SECRET_KEY_BASE (generate with: rails secret)
+#    - FOREM_OWNER_SECRET (generate with: rails secret)
+#    - APP_DOMAIN (your-app.onrender.com or custom domain)
+#    - CLOUDINARY_URL (optional)
+#    - SENTRY_DSN (optional)
+#    - SENDGRID_API_KEY (optional)
+# 5. Deploy!
+#
+# Render automatically:
+# - Builds from Dockerfile
+# - Runs database migrations (preDeployCommand)
+# - Provides free SSL certificates
+# - Assigns a *.onrender.com URL
+# - Auto-deploys on push to main branch
+#
+# Pricing Estimate (Staging):
+# - Web service: $7/month (starter)
+# - Worker service: $7/month (starter)
+# - PostgreSQL: $7/month (starter)
+# - Redis: $10/month (starter)
+# Total: ~$31/month
+#
+# For production, upgrade to Standard plan ($25/month per service) for:
+# - Zero-downtime deploys
+# - Better performance
+# - More resources

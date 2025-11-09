@@ -1,0 +1,92 @@
+# VIBECODING: Railway Deployment Configuration
+# Documentation: https://docs.railway.app/deploy/config-as-code
+
+[build]
+builder = "DOCKERFILE"
+dockerfilePath = "Dockerfile"
+buildTarget = "production"
+
+[build.args]
+# Pass Git SHA for versioning
+VCS_REF = "$RAILWAY_GIT_COMMIT_SHA"
+
+[deploy]
+# Number of replicas (horizontal scaling)
+numReplicas = 1
+
+# Restart policy
+restartPolicyType = "ON_FAILURE"
+restartPolicyMaxRetries = 10
+
+# Health check configuration
+healthcheckPath = "/api/v1/health_checks/app"
+healthcheckTimeout = 30
+
+# Startup command (override Dockerfile CMD if needed)
+# startCommand = "bundle exec rails server -b 0.0.0.0 -p $PORT"
+
+[deploy.migration]
+# Run database migrations before deployment
+enabled = true
+command = "bundle exec rails db:migrate"
+
+[deploy.lifecycle]
+# Pre-deploy hooks (optional - for asset precompilation if needed)
+# preDeploy = "bundle exec rails assets:precompile"
+
+# Post-deploy hooks (optional - for cache warming, notifications, etc.)
+# postDeploy = "bundle exec rails runner 'Rails.cache.clear'"
+
+# Volumes for persistent storage (optional - for uploads if not using Cloudinary)
+# [[deploy.volumes]]
+# name = "uploads"
+# mountPath = "/opt/apps/forem/public/uploads"
+
+# Environment-specific settings
+[environments.staging]
+# Staging environment automatically uses environment variables from Railway dashboard
+
+[environments.production]
+# Production environment configuration
+# Note: Manual approval gate should be configured in Railway dashboard
+
+# Networking
+[deploy.networking]
+# Railway automatically assigns a public URL
+# Custom domain can be configured in Railway dashboard
+
+# Observability
+[observability]
+# Railway provides built-in logging and metrics
+# Logs are automatically captured from STDOUT/STDERR
+
+# Notes for Railway Setup:
+# =======================
+# 1. Install Railway CLI: npm i -g @railway/cli
+# 2. Login: railway login
+# 3. Create new project: railway init
+# 4. Add PostgreSQL: railway add --plugin postgresql
+# 5. Add Redis: railway add --plugin redis
+# 6. Set environment variables in dashboard (see .env.staging for list)
+# 7. Deploy: railway up
+# 8. Configure custom domain in dashboard
+# 9. Set up GitHub integration for auto-deploy on push to main
+#
+# Required Environment Variables (set in Railway dashboard):
+# - SECRET_KEY_BASE (generate with: rails secret)
+# - FOREM_OWNER_SECRET (generate with: rails secret)
+# - APP_DOMAIN (your Railway domain or custom domain)
+# - APP_PROTOCOL=https://
+# - RAILS_ENV=production
+# - NODE_ENV=production
+# - RAILS_SERVE_STATIC_FILES=true
+# - RAILS_LOG_TO_STDOUT=true
+# - CLOUDINARY_URL (optional but recommended)
+# - SENTRY_DSN (optional but recommended)
+# - SENDGRID_API_KEY (optional but recommended)
+#
+# Railway automatically provides:
+# - DATABASE_URL (from PostgreSQL plugin)
+# - REDIS_URL (from Redis plugin)
+# - PORT (automatic)
+# - RAILWAY_GIT_COMMIT_SHA (automatic)
