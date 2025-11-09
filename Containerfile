@@ -122,7 +122,9 @@ COPY --from=builder --chown="${APP_USER}":"${APP_USER}" ${APP_HOME} ${APP_HOME}
 USER "${APP_USER}"
 WORKDIR "${APP_HOME}"
 
-VOLUME "${APP_HOME}"/public/
+# VIBECODING: Commented out VOLUME for Railway compatibility
+# Railway doesn't allow VOLUME keyword - use Railway Volumes instead if persistent storage needed
+# VOLUME "${APP_HOME}"/public/
 
 ENTRYPOINT ["./scripts/entrypoint.sh"]
 
