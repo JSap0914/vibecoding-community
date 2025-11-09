@@ -180,8 +180,9 @@ ENV TMPDIR=/var/tmp
 
 # Common dependencies
 # Using --mount to speed up build with caching, see https://github.com/moby/buildkit/blob/master/frontend/dockerfile/docs/reference.md#run---mount
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+# VIBECODING: Added id parameter for Railway compatibility
+RUN --mount=type=cache,id=apt-cache,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,id=apt-lib,target=/var/lib/apt,sharing=locked \
   --mount=type=tmpfs,target=/var/log \
   rm -f /etc/apt/apt.conf.d/docker-clean; \
   echo 'Binary::apt::APT::Keep-Downloaded-Packages "true";' > /etc/apt/apt.conf.d/keep-cache; \
@@ -198,8 +199,9 @@ ARG PG_MAJOR
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | gpg --dearmor -o /usr/share/keyrings/postgres-archive-keyring.gpg \
   && echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/postgres-archive-keyring.gpg] https://apt.postgresql.org/pub/repos/apt/" \
     $(lsb_release -cs)-pgdg main $PG_MAJOR | tee /etc/apt/sources.list.d/postgres.list > /dev/null
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-  --mount=type=cache,target=/var/lib/apt,sharing=locked \
+# VIBECODING: Added id parameter for Railway compatibility
+RUN --mount=type=cache,id=apt-cache-pg,target=/var/cache/apt,sharing=locked \
+  --mount=type=cache,id=apt-lib-pg,target=/var/lib/apt,sharing=locked \
   --mount=type=tmpfs,target=/var/log \
   apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade && \
   DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
@@ -207,8 +209,9 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     postgresql-client
 
 # Application dependencies, for Cypress, node-canvas
-RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
-    --mount=type=cache,target=/var/lib/apt,sharing=locked \
+# VIBECODING: Added id parameter for Railway compatibility
+RUN --mount=type=cache,id=apt-cache-app,target=/var/cache/apt,sharing=locked \
+    --mount=type=cache,id=apt-lib-app,target=/var/lib/apt,sharing=locked \
     --mount=type=tmpfs,target=/var/log \
     DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
       build-essential \
