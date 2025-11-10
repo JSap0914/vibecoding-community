@@ -8,3 +8,6 @@
 *.erb  diff=html
 /CHANGELOG.md merge=union
 config/locales/*.yml merge=union
+
+# VIBECODING: Force LF line endings for shell scripts (required for Docker/Linux containers)
+*.sh text eol=lf
