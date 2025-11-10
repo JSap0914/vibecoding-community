@@ -5,7 +5,6 @@
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "Dockerfile"
-buildTarget = "production"
 
 [build.args]
 # Pass Git SHA for versioning
@@ -23,10 +22,11 @@ restartPolicyMaxRetries = 10
 # Web service: Set healthcheck to /api/v1/health_checks/app
 # Sidekiq service: Leave healthcheck disabled
 
-[deploy.migration]
-# Run database migrations before deployment (only on web service)
-enabled = true
-command = "bundle exec rails db:migrate"
+# NOTE: migrations should be run manually in Railway dashboard or via release command
+# Railway doesn't support [deploy.migration] in v2 - use Procfile release task instead
+# [deploy.migration]
+# enabled = true
+# command = "bundle exec rails db:migrate"
 
 # Networking
 [deploy.networking]
