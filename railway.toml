@@ -5,6 +5,7 @@
 [build]
 builder = "DOCKERFILE"
 dockerfilePath = "Containerfile"
+dockerBuildTarget = "production"
 
 [build.args]
 # Pass Git SHA for versioning
