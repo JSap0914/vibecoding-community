@@ -4,7 +4,7 @@
 
 [build]
 builder = "DOCKERFILE"
-dockerfilePath = "Dockerfile"
+dockerfilePath = "Containerfile"
 
 [build.args]
 # Pass Git SHA for versioning
