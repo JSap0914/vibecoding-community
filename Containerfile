@@ -77,7 +77,9 @@ RUN mkdir -p "${BUNDLE_APP_CONFIG}" && \
 
 COPY --chown=${APP_UID}:${APP_GID} . "${APP_HOME}"
 
-RUN mkdir -p "${APP_HOME}"/public/{assets,images,packs,podcasts,uploads}
+# VIBECODING: Create required tmp directories for Rails
+RUN mkdir -p "${APP_HOME}"/tmp/{pids,cache,sockets} && \
+    mkdir -p "${APP_HOME}"/public/{assets,images,packs,podcasts,uploads}
 
 # While it's relatively rare for bare metal builds to hit the default
 # timeout, QEMU-based ones (as is the case with Docker BuildX for
