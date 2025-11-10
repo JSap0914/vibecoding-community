@@ -1,5 +1,5 @@
 module Images
-  TEMPLATE_PATH = "app/assets/images/social_template.png".freeze
+  TEMPLATE_PATH = "app/assets/images/social_template.png".freeze unless const_defined?(:TEMPLATE_PATH)
 
   class GenerateSubforemImages
     def self.call(subforem_id, image_url, background_url = nil)

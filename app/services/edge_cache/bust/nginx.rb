@@ -40,8 +40,10 @@ end
 # Creates our own purge method for an HTTP request,
 # which is used by Nginx to bust a cache.
 # See Net::HTTPGenericRequest for attributes/methods.
-class Net::HTTP::Purge < Net::HTTPRequest # rubocop:disable Style/ClassAndModuleChildren
-  METHOD = "PURGE".freeze
-  REQUEST_HAS_BODY = false
-  RESPONSE_HAS_BODY = true
+unless defined?(Net::HTTP::Purge)
+  class Net::HTTP::Purge < Net::HTTPRequest # rubocop:disable Style/ClassAndModuleChildren
+    METHOD = "PURGE".freeze
+    REQUEST_HAS_BODY = false
+    RESPONSE_HAS_BODY = true
+  end
 end

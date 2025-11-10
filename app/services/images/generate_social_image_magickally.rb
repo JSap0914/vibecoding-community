@@ -1,7 +1,7 @@
 module Images
   MEDIUM_FONT_PATH = "app/assets/fonts/Roboto-Medium.ttf".freeze
   BOLD_FONT_PATH = "app/assets/fonts/Roboto-Bold.ttf".freeze
-  TEMPLATE_PATH = "app/assets/images/social_template.png".freeze
+  TEMPLATE_PATH = "app/assets/images/social_template.png".freeze unless const_defined?(:TEMPLATE_PATH)
   ROUNDED_MASK_PATH = "app/assets/images/rounded_mask.png".freeze
 
   class GenerateSocialImageMagickally
