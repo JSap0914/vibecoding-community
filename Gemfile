@@ -95,7 +95,7 @@ gem "rpush", "~> 7.0" # Push Notification library for Rails
 gem "rpush-redis", "~> 1.1" # Redis module capability for rpush library
 
 gem "request_store", "~> 1.5" # RequestStore gives you per-request global storage
-gem "reverse_markdown", "~> 2.1" # Map simple html back into markdown
+gem "reverse_markdown", "~> 3.0" # Map simple html back into markdown
 gem "rolify", "~> 6.0" # Very simple Roles library
 gem "rouge", "~> 4.2" # A pure-ruby code highlighter
 gem "rss", "~> 0.2.9" # Ruby's standard library for RSS
